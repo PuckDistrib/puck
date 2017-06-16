@@ -105,9 +105,9 @@ def commonSettings(module: String) : Seq[Setting[_]] = Seq(
 
 
 //val extendjUrl = "https://bitbucket.org/extendj/extendj.git#master"
-//val extendjUrl = "https://bitbucket.org/extendj/extendj.git#5196a27" //2017-03-29 OK
 //val extendjUrl = "https://bitbucket.org/extendj/extendj.git#53debda" //2017-04-24 KO
-val extendjUrl = "https://bitbucket.org/extendj/extendj.git#2081568" //2017-04-12
+// val extendjUrl = "https://bitbucket.org/extendj/extendj.git#2081568" //2017-04-12 OK
+val extendjUrl = "https://bitbucket.org/extendj/extendj.git#b66a11e" //2017-04-21 OK
 val extendj : ProjectReference = RootProject(uri(extendjUrl))
 
 
