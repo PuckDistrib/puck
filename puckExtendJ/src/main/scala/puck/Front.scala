@@ -69,6 +69,7 @@ object Front extends SwingApplication {
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName)
     if (top.size == new Dimension(0,0)) top.pack()
     top.visible = true
+
   }
 
   val top = new MainFrame {
