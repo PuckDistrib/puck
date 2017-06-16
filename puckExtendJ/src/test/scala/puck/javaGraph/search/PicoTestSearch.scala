@@ -21,7 +21,10 @@ object PicoTestSearch {
   def main(args : Array[String]) : Unit = {
     val filePaths = Seq(
       s"$path/pico/Personne.java",
-      s"$path/pico/Client.java")
+      s"$path/pico/Client.java",
+      s"$path/pico/Main.java"
+    )
+
     val scenario = new ScenarioFactory(filePaths:_*)
 
 
@@ -39,7 +42,7 @@ object PicoTestSearch {
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness2)
     val strategy = new AStarSearchStrategyGraphDisplayOnly[Any](
       evaluator, Some(constraints),
-      10, 1000, solsDir)
+      100, 1000, solsDir)
 
 
 //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
