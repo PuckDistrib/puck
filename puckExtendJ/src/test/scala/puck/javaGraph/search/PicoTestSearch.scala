@@ -30,19 +30,19 @@ object PicoTestSearch {
 
     val constraints = scenario.parseConstraintsFile(s"$path/decouple.wld")
 
-//    val fitness1: DependencyGraph => Double =
-//      Metrics.fitness1(_, constraints, 1, 1).toDouble
+   val fitness1: DependencyGraph => Double =
+     Metrics.fitness1(_, constraints, 1, 1).toDouble
 
     val nodesSet = scenario.graph nodesIn constraints
 
-    val fitness2: DependencyGraph => Double =
-      Metrics.fitness2(_, nodesSet).toDouble
+//    val fitness2: DependencyGraph => Double =
+ //     Metrics.fitness2(_, nodesSet).toDouble
 
 //    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Option[ConcreteNode]](fitness1)
-    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness2)
+    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
     val strategy = new AStarSearchStrategyGraphDisplayOnly[Any](
       evaluator, Some(constraints),
-      100, 1000, solsDir)
+      5, 10, solsDir)
 
 
 //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
