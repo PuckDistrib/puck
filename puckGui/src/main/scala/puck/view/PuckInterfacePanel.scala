@@ -216,7 +216,7 @@ class PuckInterfacePanel
 
     }
 
-    contents += makeButton("Search", ""){
+    contents += makeButton("Search", "", false){ // parameter "false" added by cedric to disable the button
       () => control.search()
     }
 
