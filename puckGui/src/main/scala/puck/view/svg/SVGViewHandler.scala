@@ -40,6 +40,7 @@ import puck.view.{NodeKindIcons, _}
 import scala.swing.SequentialContainer.Wrapper
 import scala.swing._
 import scala.util.{Failure, Success}
+import puck.view.explorer.GraphExplorer
 
 /**
   * Created by Loïc Girault on 26/01/16.
