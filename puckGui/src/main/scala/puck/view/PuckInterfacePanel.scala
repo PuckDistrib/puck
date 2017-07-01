@@ -55,8 +55,8 @@ class PuckInterfacePanel
   val height = PuckMainPanel.height * 2/3
 
 
-
-  def makeButton(title:String, tip: String)(act:() => Unit): Component =
+// parameter ena added to makeButton by cedric to create disabled buttons
+  def makeButton(title:String, tip: String, ena: Boolean = true)(act:() => Unit): Component =
     new Button() {
       tooltip = tip
       minimumSize = new Dimension(leftWidth, 30)
@@ -64,6 +64,7 @@ class PuckInterfacePanel
       preferredSize = minimumSize
 
       action = new Action(title) {
+        enabled = ena
         def apply(): Unit = {
           act()
         }
@@ -178,7 +179,7 @@ class PuckInterfacePanel
       contents += new Button() {
         val b : Button = this
         action = new Action("Save refactoring plan") {
-
+           enabled = false // added by cedric to disable the button
           def apply(): Unit = control.sProject foreach { p =>
             saveFile(p.workspace, b.peer) match {
               case None => publisher publish Log("no file selected")
@@ -191,6 +192,7 @@ class PuckInterfacePanel
       contents += new Button() {
         val b : Button = this
         action = new Action("Load refactoring plan") {
+          enabled = false // added by cedric to disable the button
           def apply(): Unit =  control.sProject foreach { p =>
             openFile(p.workspace, b.peer) match {
               case None => publisher publish Log("no file selected")
@@ -218,7 +220,7 @@ class PuckInterfacePanel
       () => control.search()
     }
 
-    contents += makeButton("Show recording", ""){
+    contents += makeButton("Show recording", "", false){ // parameter "false" added by cedric to disable the button
       control.printRecording
     }
 
@@ -266,7 +268,7 @@ class PuckInterfacePanel
     contents += testCommutativityCB
 
     ignore(contents += makeButton("Generate Code",
-      "Apply transformations on the code")(
+      "Apply transformations on the code", false)( // parameter "false" added by cedric to disable the button
       () =>publisher publish
         GenCode(compareOutput = testCommutativityCB.selected)))
   }
