@@ -32,6 +32,7 @@ import puck.control._
 import puck.view.{NodeKindIcons, PuckMainPanel, TreeViewHandler, ViewHandler}
 
 import scala.swing.Publisher
+import puck.view.explorer.GraphExplorer
 
 /**
   * Created by Loïc Girault on 07/06/16.
