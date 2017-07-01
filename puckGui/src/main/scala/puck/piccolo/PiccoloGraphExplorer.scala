@@ -63,11 +63,20 @@ class PiccoloGraphExplorer
 
 object PiccoloViewHandler extends ViewHandler {
 
-  override def toString = "Piccolo View"
-  def installView(mainPanel: PuckMainPanel,
+ // modified by cedric
+ // override def toString = "Piccolo View"
+ override def toString = "Piccolo View - unavailable: under construction"
+  def installView(mainPanel: PuckMainPanel, treeIcons: NodeKindIcons) : Publisher = {
+    new TreeViewHandler(mainPanel,
+      new GraphExplorer(mainPanel.control, treeIcons))
+
+  }
+ /*
+ def installView(mainPanel: PuckMainPanel,
                   nodeKindIcons: NodeKindIcons) : Publisher = {
     new TreeViewHandler(mainPanel,
       scala.swing.Component.wrap(new PiccoloGraphExplorer(mainPanel.control, nodeKindIcons)))
 
-  }
+  } */
+ 
 }
