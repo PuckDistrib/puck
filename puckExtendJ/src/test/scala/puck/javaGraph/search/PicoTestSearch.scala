@@ -30,13 +30,13 @@ object PicoTestSearch {
 
     val constraints = scenario.parseConstraintsFile(s"$path/decouple.wld")
 
-   val fitness1: DependencyGraph => Double =
-     Metrics.fitness1(_, constraints, 1, 1).toDouble
+    val fitness1: DependencyGraph => Double =
+     Metrics.fitness1(_, constraints).toDouble
 
     val nodesSet = scenario.graph nodesIn constraints
 
 //    val fitness2: DependencyGraph => Double =
- //     Metrics.fitness2(_, nodesSet).toDouble
+//      Metrics.fitness2(_, nodesSet).toDouble
 
 //    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Option[ConcreteNode]](fitness1)
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)

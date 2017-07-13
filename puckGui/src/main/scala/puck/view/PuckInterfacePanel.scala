@@ -203,7 +203,7 @@ class PuckInterfacePanel
       }
     }.leftGlued
 
-    contents += new ComboBox(List[ViewHandler](TreeViewHandler, SVGViewHandler, PiccoloViewHandler)) {
+    contents += new ComboBox(List[ViewHandler](TreeViewHandler, SVGViewHandler, piccolo.PiccoloViewHandler, piccolo2.PiccoloViewHandler)) {
       minimumSize = new Dimension(leftWidth, 30)
       maximumSize = minimumSize
       preferredSize = minimumSize
