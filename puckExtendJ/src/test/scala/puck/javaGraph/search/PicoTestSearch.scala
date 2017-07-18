@@ -42,7 +42,7 @@ object PicoTestSearch {
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
     val strategy = new AStarSearchStrategyGraphDisplayOnly[Any](
       evaluator, Some(constraints),
-      5, 10, solsDir)
+      10, 100, solsDir)
 
 
 //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
