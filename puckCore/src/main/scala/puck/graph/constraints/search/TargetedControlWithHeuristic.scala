@@ -50,13 +50,19 @@ trait Heuristic extends ActionGenerator {
     automataState match {
       case 0 =>
         assertNonEmpty(
-          decorate(moveAction(g, violationTarget), 1) ++
-          decorate(epsilon(g), 1) ++
+          (if (violationTarget.kind.kindType.equals(TypeConstructor))
+            Seq()
+              else
+            decorate(moveAction(g, violationTarget), 1)) ++
           decorate(abstractAction(g, violationTarget), 2) ++
           decorate(moveContainerAction(g, violationTarget), 3) )
 
       case 1 =>
-        assertNonEmpty(decorate(abstractContainerAction(g, violationTarget), 2) )
+        assertNonEmpty(
+          decorate(
+            abstractContainerAction(g, violationTarget)
+            , 2)
+        )
 
       case 2 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
