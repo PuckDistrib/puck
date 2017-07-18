@@ -3,7 +3,7 @@ package puck.javaGraph.search
 import org.extendj.ExtendJGraphUtils.{Rules, dotHelper, violationsKindPriority}
 import puck.graph._
 import puck.graph.constraints.ConstraintsMapsUtils._
-import puck.graph.constraints.search.{ControlWithHeuristic, DecoratedGraphEvaluator, WithVirtualNodes}
+import puck.graph.constraints.search._
 import puck.javaGraph.{ScenarioFactory, SearchEngineWithLoggedFitness}
 import puck.search._
 
@@ -20,9 +20,9 @@ object PicoTestSearch {
 
   def main(args : Array[String]) : Unit = {
     val filePaths = Seq(
-      s"$path/pico/Personne.java",
-      s"$path/pico/Client.java",
-      s"$path/pico/Main.java"
+      s"$path/src/pico/Personne.java",
+      s"$path/src/pico/Client.java",
+      s"$path/src/pico/Main.java"
     )
 
     val scenario = new ScenarioFactory(filePaths:_*)
@@ -49,7 +49,9 @@ object PicoTestSearch {
 //      constraints, WithVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
-      constraints, WithVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
+      constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
+ //   val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
+ //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
     val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints)
