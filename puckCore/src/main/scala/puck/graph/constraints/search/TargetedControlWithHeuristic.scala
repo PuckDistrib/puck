@@ -53,6 +53,7 @@ trait Heuristic extends ActionGenerator {
           (if (violationTarget.kind.kindType.equals(TypeConstructor))
             Seq()
               else
+            decorate(epsilon(g), 1) ++
             decorate(moveAction(g, violationTarget), 1)) ++
           decorate(abstractAction(g, violationTarget), 2) ++
           decorate(moveContainerAction(g, violationTarget), 3) )
