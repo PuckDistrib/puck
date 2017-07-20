@@ -103,9 +103,10 @@ class JastaddGraphBuilder(val program : Program)
 
   def onCreate(n : DGNamedElement) : NodeId => Unit = {
     nid =>
-      if(!n.fromSource)
+      if(!n.fromSource) {
         fromLibrary += nid
-      else if(n.isSynthetic)
+        println(nid+"-"+getFullName(nid)+" is in fromLibrary")  // added by Cedric
+      } else if(n.isSynthetic)
         synthetic += nid
   }
 

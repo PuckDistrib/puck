@@ -253,7 +253,8 @@ class JavaJastAddDG2AST
     )
 
   def initialMutability : MutabilitySet =
-    MutabilitySet.allImmutable(initialGraph).setMutability(mutableNodes, Mutable)
+  MutabilitySet.allImmutable(initialGraph).setMutability(mutableNodes, Mutable)
+
 
   implicit val p = program
 

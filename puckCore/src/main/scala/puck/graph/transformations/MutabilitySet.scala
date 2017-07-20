@@ -25,7 +25,7 @@ object MutabilitySet {
 
   def allMutable(graph : DependencyGraph) : T = Set[NodeId]().setMutability(graph.nodesId, Mutable)
 
-  def allImmutable(graph : DependencyGraph) : T = Set[NodeId]()
+  def allImmutable(graph : DependencyGraph) : T = Set[NodeId]().setMutability(graph.nodesId, Immutable) // corrected by Cedric
 
   def setMutableWithName
   (graph : DependencyGraph, mutableSet : T,

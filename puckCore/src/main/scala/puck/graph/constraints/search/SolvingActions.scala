@@ -160,7 +160,7 @@ class SolvingActions
     predicate : NodePredicate, virtualizableKind : Set[KindType] = Set(NameSpace)
   ) : Stream[LoggedTry[(NodeId, DependencyGraph)]] = {
       val choices = graph.mutableNodes.toList map graph.getNode filter (predicate(graph,_))
-      //val choices = graph.concreteNodes.filter(predicate(graph,_)).toList
+//      val choices = graph.concreteNodes.filter(predicate(graph,_)).toList map graph.getConcreteNode filter (MutabilitySetOps.isMutable)
 
       if(choices.isEmpty) Stream(LoggedError(s"chooseNode, choices is empty"))
       else {

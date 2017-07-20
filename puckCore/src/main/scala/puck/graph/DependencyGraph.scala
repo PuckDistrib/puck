@@ -166,6 +166,8 @@ class DependencyGraph private
 
   def mutableNodes : Set[NodeId] = mutabilitySet.mutableNodes(this)
 
+  def immutableNodes : Set[NodeId] = mutabilitySet.immutableNodes(this) // added by Cedric
+
   def isMutable(n : NodeId) : Boolean = mutabilitySet isMutable n
 
   def comment(msg : String) = newGraph(recording = recording.comment(msg))

@@ -1,6 +1,7 @@
 package puck.javaGraph.search
 
 import org.extendj.ExtendJGraphUtils.{Rules, dotHelper, violationsKindPriority}
+import org.extendj.ast.JastaddGraphBuilder
 import puck.graph._
 import puck.graph.constraints.ConstraintsMapsUtils._
 import puck.graph.constraints.search._
@@ -40,10 +41,22 @@ object PicoTestSearch {
 
 //    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Option[ConcreteNode]](fitness1)
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
-    val strategy = new AStarSearchStrategyGraphDisplayOnly[Any](
+    val strategy = new AStarSearchStrategyGraphDisplay[Any](
       evaluator, Some(constraints),
-      10, 100, solsDir)
+      1000, 1000, solsDir)
 
+    // start added by Cedric
+    println("Mutable nodes:")
+    for (n <- scenario.graph.mutableNodes.toList) {
+      print(n+"-"+scenario.graph.nodesIndex.getConcreteNode(n).name+" ")
+    }
+    println()
+    println("Immutable nodes:")
+    for (n <- scenario.graph.immutableNodes.toList) {
+      print(n+"-"+scenario.graph.nodesIndex.getConcreteNode(n).name+" ")
+    }
+    println()
+    // end added by Cedric
 
 //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
 //      constraints, WithVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
@@ -61,6 +74,15 @@ object PicoTestSearch {
       engine.searchStrategy.SearchStateOrdering,
       scenario.fullName2id, constraints, filePaths:_*)
 
+    var n = 1
+    for (g<-engine.successes) {
+      println
+      println("operations for solution "+n)
+      println
+      println(g.loggedResult.log)
+      println("---------------------------")
+      n = n + 1
+    }
 
   }
 }

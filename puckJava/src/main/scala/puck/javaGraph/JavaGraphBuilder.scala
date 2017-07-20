@@ -46,8 +46,10 @@ trait JavaGraphBuilder extends GraphBuilder{
   def addPackageNode(fullName: String, localName:String, fromSource : Boolean) : NodeId =
     addNode(fullName, localName, Package)(
       pid =>
-        if(!fromSource)
+        if(!fromSource) {
           fromLibrary += pid
+          println(pid + "-" + getFullName(pid) + " is in fromLibrary") // added by Cedric
+        }
     )
 
   def definitionOf(nid : NodeId) =
