@@ -159,10 +159,13 @@ class SolvingActions
   ( graph : DependencyGraph,
     predicate : NodePredicate, virtualizableKind : Set[KindType] = Set(NameSpace)
   ) : Stream[LoggedTry[(NodeId, DependencyGraph)]] = {
-      val choices = graph.mutableNodes.toList map graph.getNode filter (predicate(graph,_))
-//      val choices = graph.concreteNodes.filter(predicate(graph,_)).toList map graph.getConcreteNode filter (MutabilitySetOps.isMutable)
+      val initialChoices = graph.mutableNodes.toList
+      //val choices = graph.mutableNodes.toList map graph.getNode filter (predicate(graph,_))
+      val choices = initialChoices map graph.getNode filter (predicate(graph,_))
+      ////val choices = graph.concreteNodes.filter(predicate(graph,_)).toList
 
-      if(choices.isEmpty) Stream(LoggedError(s"chooseNode, choices is empty"))
+      if(choices.isEmpty)
+        Stream(LoggedError(s"chooseNode, choices is empty"))
       else {
 
         val s = partitionByKind(graph)(choices, List()).toStream
@@ -279,12 +282,15 @@ class SolvingActions
           val g3 =  g2.setMutability(abs.nodes, Mutable)
 
           //fields abstractions introduced with container
-          if((g3 container abs.nodes.head).nonEmpty) Stream(LoggedEither(log, \/-((abs, g3))))
+          if((g3 container abs.nodes.head).nonEmpty)
+              Stream(LoggedEither(log, \/-((abs, g3))))
           else
           (hostIntro(g3, g3.getConcreteNode(abs.nodes.head)) ++
-            chooseNode(g3, newAbsFindHostPredicate(impl,
-              abs.policy, absNodeKind),
-              vnPolicicy.virtualizableKindFor(abs.kind(g3)))).map {
+            chooseNode(g3,
+                        newAbsFindHostPredicate(impl,
+                                                abs.policy, absNodeKind),
+                                                vnPolicicy.virtualizableKindFor(abs.kind(g3)))
+            ).map {
             lt =>  s"$log\nSearching host for $abs\n" <++: lt.flatMap {
               case (host, g4) => introAbsContainsAndIsa(abs, impl, g4, host)
 

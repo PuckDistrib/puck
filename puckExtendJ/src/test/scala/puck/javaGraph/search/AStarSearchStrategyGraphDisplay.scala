@@ -5,6 +5,7 @@ import puck.graph.constraints.ConstraintsMaps
 import puck.graph.io.DotHelper
 import puck.graph.{DecoratedGraphOps, _}
 import puck.search.{AStarSearchStrategy, Evaluator, SearchState}
+import puck.Quick
 
 import scalaz.\/-
 
@@ -25,8 +26,8 @@ class AStarSearchStrategyGraphDisplayOnly[T]
   override def addState(s: SearchState[DecoratedGraph[T]]): Unit = {
     super.addState(s)
     if (s.isSuccess) {
-      // Quick.frame(dg.graph, "Best current solution", scm)
-      //     println ("size = " + remainingStates.length +" "+  remainingStates.mkString("/") )
+      //Quick.frame(dg.graph, "Best current solution", scm)
+       //   println ("size = " + remainingStates.length +" "+  remainingStates.mkString("/") )
       remainingStates foreach {
         rs =>
           val \/-(dg) = rs.loggedResult.value

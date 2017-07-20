@@ -25,7 +25,9 @@ object MutabilitySet {
 
   def allMutable(graph : DependencyGraph) : T = Set[NodeId]().setMutability(graph.nodesId, Mutable)
 
-  def allImmutable(graph : DependencyGraph) : T = Set[NodeId]().setMutability(graph.nodesId, Immutable) // corrected by Cedric
+  // changed by Cedric and Mikal
+  // def allImmutable(graph : DependencyGraph) : T = Set[NodeId]()
+  def allImmutable(graph : DependencyGraph) : T = Set[NodeId]().setMutability(graph.nodesId, Immutable)
 
   def setMutableWithName
   (graph : DependencyGraph, mutableSet : T,
@@ -39,6 +41,8 @@ object MutabilitySet {
             setMutableWithName(graph, mutableSet.setMutability(nid, m), nid, tl, m)
         }
     }
+
+
 
   implicit class MutabilitySetOps(val immutables: T) extends AnyVal {
 
