@@ -48,7 +48,7 @@ trait JavaGraphBuilder extends GraphBuilder{
       pid =>
         if(!fromSource) {
           fromLibrary += pid
-          println(pid + "-" + getFullName(pid) + " is in fromLibrary") // added by Cedric
+     //     println(pid + "-" + getFullName(pid) + " is in fromLibrary") // added by Cedric
         }
     )
 

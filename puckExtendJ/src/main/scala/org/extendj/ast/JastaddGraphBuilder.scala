@@ -105,7 +105,7 @@ class JastaddGraphBuilder(val program : Program)
     nid =>
       if(!n.fromSource) {
         fromLibrary += nid
-        println(nid+"-"+getFullName(nid)+" is in fromLibrary")  // added by Cedric
+    //    println(nid+"-"+getFullName(nid)+" is in fromLibrary")  // added by Cedric
       } else if(n.isSynthetic)
         synthetic += nid
   }
