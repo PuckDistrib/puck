@@ -48,18 +48,17 @@ import puck.view.explorer.GraphExplorer
 object SVGViewHandler extends ViewHandler{
 
  // modified by cedric
- // override def toString = "Dot SVG View" 
-  override def toString = "Dot SVG View - unavailable : under construction"
+  override def toString = "Dot SVG View"
+ // override def toString = "Dot SVG View - unavailable : under construction"
  
- def installView(mainPanel: PuckMainPanel, treeIcons: NodeKindIcons) : Publisher = {
+/* def installView(mainPanel: PuckMainPanel, treeIcons: NodeKindIcons) : Publisher = {
     new TreeViewHandler(mainPanel,
       new GraphExplorer(mainPanel.control, treeIcons))
 
-  }
- /*
+  } */
   def installView(mainPanel: PuckMainPanel, nodeKindIcons: NodeKindIcons) : Publisher = {
     new SVGViewHandler(mainPanel)
-  } */
+  }
 }
 
 class SVGViewHandler
