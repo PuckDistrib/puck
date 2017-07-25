@@ -48,7 +48,7 @@ class AStarSearchOrdering[T](evaluator: Evaluator [T]) extends Ordering[SearchSt
     //  evaluateWithDepthPenalty(sx) compareTo evaluateWithDepthPenalty(sy)
     val fitx = evaluateWithDepthPenalty(sx)
     val fity = evaluateWithDepthPenalty(sy)
-    if (evaluateWithDepthPenalty(sx).equals(evaluateWithDepthPenalty(sy)))
+    if (fitx.equals(fity))
       sx.id compareTo sy.id
     else
       fitx compareTo fity
