@@ -123,15 +123,17 @@ class SolvingActions
           val hostName = s"${toBeContained.name}_container$newCterNumGen"
           rules.intro(g0, hostName, hostKind)
       } flatMap {
-        case (toBeCtedHost, g1) =>
-          findHost(g1.setMutability(toBeCtedHost.id, Mutable), toBeCtedHost) map {
+        case (toBeCtedHost, g1) => {
+          val s = findHost(g1.setMutability(toBeCtedHost.id, Mutable), toBeCtedHost)
+          s map {
             _ flatMap {
               case (hid, g2) =>
-                if(g2.contains_*(toBeContained.id, hid))
+                if (g2.contains_*(toBeContained.id, hid))
                   LoggedError("Error : introducing contains loop")
                 else LoggedSuccess((toBeCtedHost.id, g2.addContains(hid, toBeCtedHost.id)))
             }
           }
+        }
       }
 
 
@@ -267,7 +269,7 @@ class SolvingActions
       s"from ${(g, oldCter).shows} to ${(g, newCter).shows}\n" <++: ltg }
   }
 
-  def absIntro
+  /*def absIntro
   ( g : DependencyGraph,
     impl : ConcreteNode
   ) :  Stream[LoggedTry[(Abstraction, DependencyGraph)]] =
@@ -296,7 +298,43 @@ class SolvingActions
 
             }
           }
-      }
+      }*/
+
+  def absIntro
+  ( g : DependencyGraph,
+    impl : ConcreteNode
+  ) :  Stream[LoggedTry[(Abstraction, DependencyGraph)]] = {
+    val choices  = impl.kind.abstractionChoices.toStream;
+    val abstractions = choices.map {
+      case (absNodeKind, absPolicy) =>
+       rules.abstracter.createAbstraction(g, impl, absNodeKind, absPolicy)
+    }
+
+    abstractions flatMap {
+      case lt@LoggedEither(_, -\/(_)) => Stream(lt)
+      case lt@LoggedEither(log, \/-((abs, g2))) =>
+        val absNodeKind = abs.kind(g2)
+
+        val g3 = g2.setMutability(abs.nodes, Mutable)
+
+        //fields abstractions introduced with container
+        if ((g3 container abs.nodes.head).nonEmpty)
+          Stream(LoggedEither(log, \/-((abs, g3))))
+        else
+          (hostIntro(g3, g3.getConcreteNode(abs.nodes.head)) ++
+            chooseNode(g3,
+              newAbsFindHostPredicate(impl,
+                abs.policy, absNodeKind),
+              vnPolicicy.virtualizableKindFor(abs.kind(g3)))
+            ).map {
+            lt =>
+              s"$log\nSearching host for $abs\n" <++: lt.flatMap {
+                case (host, g4) => introAbsContainsAndIsa(abs, impl, g4, host)
+
+              }
+          }
+    }
+  }
 
   def introAbsContainsAndIsa
   ( abs : Abstraction,

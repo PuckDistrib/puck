@@ -41,7 +41,7 @@ object PicoTestSearch {
 
 //    val evaluator = DecoratedGraphEvaluator.equalityByMapping[Option[ConcreteNode]](fitness1)
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
-    val strategy = new AStarSearchStrategyGraphDisplayOnly[Any](
+    val strategy = new AStarSearchStrategyGraphDisplay[Any](
       evaluator, Some(constraints),
       1000, 1000, solsDir)
 
@@ -55,7 +55,7 @@ object PicoTestSearch {
  //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
-    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints)
+    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, None, Some(evaluator))
     engine.explore()
 
     SearchTest.printResult(engine.successes,

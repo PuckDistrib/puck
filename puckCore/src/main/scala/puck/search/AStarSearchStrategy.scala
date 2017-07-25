@@ -43,8 +43,16 @@ class AStarSearchOrdering[T](evaluator: Evaluator [T]) extends Ordering[SearchSt
   def evaluateWithDepthPenalty(x: SearchState[T]) : Int =
     Math.max(evaluator.evaluateInt(x) + x.depth, 0)
 
-  override def compare(sx: SearchState[T], sy: SearchState[T]): Int =
-    evaluateWithDepthPenalty(sx) compareTo evaluateWithDepthPenalty(sy)
+  override def compare(sx: SearchState[T], sy: SearchState[T]): Int = {
+    // changed by Mikal
+    //  evaluateWithDepthPenalty(sx) compareTo evaluateWithDepthPenalty(sy)
+    val fitx = evaluateWithDepthPenalty(sx)
+    val fity = evaluateWithDepthPenalty(sy)
+    if (evaluateWithDepthPenalty(sx).equals(evaluateWithDepthPenalty(sy)))
+      sx.id compareTo sy.id
+    else
+      fitx compareTo fity
+  }
 }
 
 

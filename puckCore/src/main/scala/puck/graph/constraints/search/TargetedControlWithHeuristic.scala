@@ -36,8 +36,6 @@ import puck.search.SearchControl
   */
 
 trait Heuristic extends ActionGenerator {
-
-
   def assertNonEmpty(s : Seq[LoggedTry[DecoratedGraph[AutomataState]]]) = {
     assert(s.nonEmpty)
     s
