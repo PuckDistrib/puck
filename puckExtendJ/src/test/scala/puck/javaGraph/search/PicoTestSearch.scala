@@ -55,7 +55,7 @@ object PicoTestSearch {
  //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
-    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, None, Some(evaluator))
+    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(1), Some(evaluator))
     engine.explore()
 
     SearchTest.printResult(engine.successes,
