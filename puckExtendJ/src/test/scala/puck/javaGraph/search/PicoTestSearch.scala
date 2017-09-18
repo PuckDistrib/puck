@@ -12,8 +12,6 @@ import puck.search._
   */
 object PicoTestSearch {
 
-
-
   val path = getClass.getResource("/picoPersonne/").getPath
 
   import SearchTest.solsDir
@@ -45,7 +43,6 @@ object PicoTestSearch {
       evaluator, Some(constraints),
       1000, 1000, solsDir)
 
-
 //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
 //      constraints, WithVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
@@ -55,7 +52,7 @@ object PicoTestSearch {
  //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
-    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(1), Some(evaluator))
+    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, None, Some(evaluator))
     engine.explore()
 
     SearchTest.printResult(engine.successes,

@@ -27,6 +27,7 @@
 package puck.graph
 
 import puck.graph.constraints.ConstraintsMaps
+import puck.graph.transformations.{Comment, Transformation}
 import puck.util.UnionFind
 
 
@@ -44,9 +45,18 @@ object Metrics {
 
   def fitness0(graph : DependencyGraph) = graph.numNodes
 
-  // ajouté par Mikal
+  // ajouté par Mikal & Cédric
   def fitness1(graph : DependencyGraph, cm : ConstraintsMaps, kViols : Int = 10, kComplex : Int = 1) = {
-    kViols*numViolations(graph, cm)  + kComplex*graph.numNodes
+    val gr = graph.recording.filter(_.toString.contains("Comment")).filter(_.toString.contains("Abstract.createAbstraction")).filter(_.toString.contains("Class, SupertypeAbstraction"))
+//  val gr = graph.recording
+//  println(gr.toList)
+   val s = gr.map {
+      case _ => 1
+    } sum
+
+    println(s + kViols*numViolations(graph, cm) + kComplex*graph.numNodes)
+
+    s + kViols*numViolations(graph, cm) + kComplex*graph.numNodes
   }
 
   // ajouté par Cédric
