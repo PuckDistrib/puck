@@ -48,8 +48,7 @@ object Metrics {
   // ajouté par Mikal & Cédric
   def fitness1(graph : DependencyGraph, cm : ConstraintsMaps, kViols : Int = 10, kComplex : Int = 1) = {
     val gr = graph.recording.filter(_.toString.contains("Comment")).filter(_.toString.contains("Abstract.createAbstraction")).filter(_.toString.contains("Class, SupertypeAbstraction"))
-//  val gr = graph.recording
-//  println(gr.toList)
+
    val s = gr.map {
       case _ => 1
     } sum
