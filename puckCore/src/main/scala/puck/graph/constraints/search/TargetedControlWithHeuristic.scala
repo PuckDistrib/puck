@@ -46,17 +46,27 @@ trait Heuristic extends ActionGenerator {
    violationTarget : ConcreteNode,
    automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
     automataState match {
+      case 2 =>
+        assertNonEmpty(
+            decorate(abstractAction(g, violationTarget), 1))
+      case 1 =>
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),2))
+      case 0 => assertNonEmpty(
+        decorate(moveAction(g, violationTarget), 3))
+       case 3 => Seq()
+      case _ => puck.error()
+    }
+
+/*  def hNextStates
+  (g : DependencyGraph,
+   violationTarget : ConcreteNode,
+   automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
+    automataState match {
       case 0 =>
         assertNonEmpty(
-            decorate(abstractAction(g, violationTarget), 2)
+          decorate(abstractAction(g, violationTarget), 2)
             ++ decorate(moveContainerAction(g, violationTarget), 3)
-              ++ decorate(epsilon(g), 1)
-                ++ decorate(moveAction(g, violationTarget), 1))
-
-      case 1 =>
-        assertNonEmpty(
-          decorate(abstractContainerAction(g, violationTarget), 2))
-
+            ++ decorate(moveAction(g, violationTarget), 3))
       case 2 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
 
@@ -64,38 +74,38 @@ trait Heuristic extends ActionGenerator {
 
       case _ => puck.error()
     }
+*/
 
+  /* def hNextStates
+   (g : DependencyGraph,
+    violationTarget : ConcreteNode,
+    automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
+     automataState match {
+       case 0 =>
+         assertNonEmpty(
+           (if (violationTarget.kind.kindType.equals(TypeConstructor))
+             Seq()
+               else
+             decorate(epsilon(g), 1) ++
+             decorate(moveAction(g, violationTarget), 1)) ++
+           decorate(abstractAction(g, violationTarget), 2) ++
+           decorate(moveContainerAction(g, violationTarget), 3)
+         )
 
- /* def hNextStates
-  (g : DependencyGraph,
-   violationTarget : ConcreteNode,
-   automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
-    automataState match {
-      case 0 =>
-        assertNonEmpty(
-          (if (violationTarget.kind.kindType.equals(TypeConstructor))
-            Seq()
-              else
-            decorate(epsilon(g), 1) ++
-            decorate(moveAction(g, violationTarget), 1)) ++
-          decorate(abstractAction(g, violationTarget), 2) ++
-          decorate(moveContainerAction(g, violationTarget), 3)
-        )
+       case 1 =>
+         assertNonEmpty(
+           decorate(
+             abstractContainerAction(g, violationTarget)
+             , 2)
+         )
 
-      case 1 =>
-        assertNonEmpty(
-          decorate(
-            abstractContainerAction(g, violationTarget)
-            , 2)
-        )
+       case 2 =>
+         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
 
-      case 2 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
+       case 3 => Seq()
 
-      case 3 => Seq()
-
-      case _ => puck.error()
-    }*/
+       case _ => puck.error()
+     }*/
 
 //
 //  def nextStates

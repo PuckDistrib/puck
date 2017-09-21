@@ -1,7 +1,8 @@
 package src.pico;
 
 public class Client {
-  public static String m(Personne p) {
-    return p.teki();
+  public static String m(Object p) {
+    //return p.teki();
+	return "";
   }
 }
