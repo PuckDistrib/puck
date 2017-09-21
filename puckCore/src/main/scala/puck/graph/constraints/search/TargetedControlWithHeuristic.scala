@@ -49,10 +49,13 @@ trait Heuristic extends ActionGenerator {
       case 0 =>
         assertNonEmpty(
             decorate(abstractAction(g, violationTarget), 2)
-//            ++ decorate(moveContainerAction(g, violationTarget), 3)
-        )
+            ++ decorate(moveContainerAction(g, violationTarget), 3)
+              ++ decorate(epsilon(g), 1)
+                ++ decorate(moveAction(g, violationTarget), 1))
 
-
+      case 1 =>
+        assertNonEmpty(
+          decorate(abstractContainerAction(g, violationTarget), 2))
 
       case 2 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))

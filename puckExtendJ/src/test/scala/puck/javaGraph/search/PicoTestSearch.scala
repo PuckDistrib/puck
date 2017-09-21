@@ -20,7 +20,7 @@ object PicoTestSearch {
     val filePaths = Seq(
       s"$path/src/pico/Personne.java",
       s"$path/src/pico/Client.java",
-      s"$path/src/pico/Main.java"
+      s"$path/src/Main.java"
     )
 
     val scenario = new ScenarioFactory(filePaths:_*)
@@ -48,8 +48,8 @@ object PicoTestSearch {
 
     val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
       constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
- //   val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
- //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
+ /*    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
+      constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]] */
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
     val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, None, Some(evaluator))

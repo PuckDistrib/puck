@@ -55,9 +55,6 @@ object Metrics {
       case _ => 1
     } sum
 
-
-    //println(s + kViols*numViolations(graph, cm) + kComplex*graph.numNodes)
-
     s + kViols*numViolations(graph, cm) + kComplex*graph.numNodes
   }
 
