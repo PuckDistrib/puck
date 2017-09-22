@@ -20,7 +20,7 @@ object PicoTestSearch {
     val filePaths = Seq(
       s"$path/src/pico/Personne.java",
       s"$path/src/pico/Client.java",
-      s"$path/src/Main.java"
+      s"$path/src/main/Main.java"
     )
 
     val scenario = new ScenarioFactory(filePaths:_*)
