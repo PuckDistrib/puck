@@ -1,0 +1,4 @@
+import ['src', 'src.pico']
+prives = ['Personne']
+clients = ['src.pico']
+hide prives from clients
