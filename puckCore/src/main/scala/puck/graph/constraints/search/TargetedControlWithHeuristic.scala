@@ -46,13 +46,16 @@ trait Heuristic extends ActionGenerator {
    violationTarget : ConcreteNode,
    automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
     automataState match {
-      case 2 =>
-        assertNonEmpty(
-            decorate(abstractAction(g, violationTarget), 1))
       case 1 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),2))
+        assertNonEmpty(
+            decorate(abstractAction(g, violationTarget), 2))
+      case 2 =>
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
       case 0 => assertNonEmpty(
-        decorate(moveAction(g, violationTarget), 3))
+        decorate(moveAction(g, violationTarget), 3)
+          ++ decorate(moveContainerAction(g, violationTarget), 3)
+            ++ decorate(moveAction(g, violationTarget), 1)
+              ++ decorate(abstractAction(g, violationTarget), 2))
        case 3 => Seq()
       case _ => puck.error()
     }
