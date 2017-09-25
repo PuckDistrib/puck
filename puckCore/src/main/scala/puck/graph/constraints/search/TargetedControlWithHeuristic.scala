@@ -48,7 +48,7 @@ trait Heuristic extends ActionGenerator {
     automataState match {
       case 0 =>
         assertNonEmpty(decorate(moveAction(g, violationTarget), 3)
-          ++ decorate(moveContainerAction(g, violationTarget), 3)
+//          ++ decorate(moveContainerAction(g, violationTarget), 3)
           ++ decorate(abstractAction(g, violationTarget), 2)
           ++ decorate(moveAction(g, violationTarget), 1))
       case 1 =>
