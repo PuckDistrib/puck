@@ -5,3 +5,4 @@ ConstraintsSolver.iml
 distrib
 target/
 out/
+/puckExtendJ/src/test/resources/picoMovePersonne/puck.xml

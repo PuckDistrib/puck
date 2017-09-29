@@ -1,8 +1,0 @@
-<puck-config>
-	<decouple>decouple.wld</decouple>
-	<workspace>/home/cedric/repo-git/puck/puckExtendJ/src/test/resources/picoPersonne</workspace>
-	<log>puck-log.txt</log>
-	<classpath rec=".jar">lib</classpath>
-	<src rec=".java">src/pico</src>
-	<out>out</out>
-</puck-config>
