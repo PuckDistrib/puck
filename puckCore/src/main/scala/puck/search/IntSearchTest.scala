@@ -59,5 +59,5 @@ object IntSearchTest extends App {
     println("launching search ... ")
     se.explore()
     println("Explored States : " + se.exploredStates)
-    println("Success depth : " + se.successes.head.depth)
+    println("Success depth : " + se.results.head.depth)
 }

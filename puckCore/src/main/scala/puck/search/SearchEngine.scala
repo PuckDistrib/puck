@@ -34,7 +34,7 @@ import scalaz.{-\/, \/-}
 
 trait Search[Result]{
   def initialState : SearchState[Result]
-  def successes : Seq[SearchState[Result]]
+  def results : Seq[SearchState[Result]]
   def failures : Seq[SearchState[Result]]
   def exploredStates : Int
 
@@ -49,23 +49,24 @@ trait Search[Result]{
 
 
 class SearchEngine[T]
-( val searchStrategy: SearchStrategy[T],
-  val control : SearchControl[T],
-  val maxResult : Option[Int] = None,// default = all result
-  val evaluator : Option[Evaluator[T]] = None
+(val searchStrategy: SearchStrategy[T],
+ val control : SearchControl[T],
+ val maxResults : Option[Int] = None, // default = all result
+ val evaluator : Option[Evaluator[T]] = None
 ) extends Search[T] {
 
-  val successes = mutable.ListBuffer[SearchState[T]]()
+  val results = mutable.ListBuffer[SearchState[T]]()
   val failures = mutable.ListBuffer[SearchState[T]]()
 
   val initialState : SearchState[T] = new SearchState(0 , None, LoggedSuccess(control.initialState))
 
 
-  val enoughSuccess : () => Boolean =
-    maxResult match {
+  val enoughResults : () => Boolean = {
+    maxResults match {
       case None => () => false
-      case Some(i) => () => successes.length >= i
+      case Some(i) => () => results.length >= i
     }
+  }
 
   private [this] var idSeed : Int = 0
   private def idGen() : Int = {idSeed += 1; idSeed}
@@ -73,11 +74,13 @@ class SearchEngine[T]
   val storeSuccess : SearchState[T] => Unit =
     evaluator match {
       case None => resState =>
-        ignore(successes += resState)
+        ignore(results += resState)
       case Some(ev) =>
         resState =>
-          if(successes.forall(!ev.equals(_, resState)))
-            ignore(successes += resState)
+          if(results.forall(!ev.equals(_, resState)) && !enoughResults()) {
+            println(s"result: $resState")
+            ignore(results += resState)
+          }
     }
 
   protected var numExploredStates = 0
@@ -129,7 +132,7 @@ class SearchEngine[T]
     numExploredStates = 1
 
     do oneStep()
-    while (searchStrategy.canContinue && !enoughSuccess())
+    while (searchStrategy.canContinue && !enoughResults())
   }
 
 }

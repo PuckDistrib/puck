@@ -54,7 +54,7 @@ object TestUtils {
   }
 
   def showEngineSuccesses[T](engine : SearchEngine[DecoratedGraph[T]]) =
-    engine.successes foreach showSuccess
+    engine.results foreach showSuccess
 
   def removeVirtualNodes(gWithoutVirtualNodes: DependencyGraph,
                          gWithVirtualNodes: DependencyGraph,
@@ -88,7 +88,7 @@ object TestUtils {
       constraints, WithVirtualNodes, violationsKindPriority)
     val engine = new SearchEngine(strategy, control, maxResult)
     engine.explore()
-    engine.successes
+    engine.results
   }
 
   implicit def toOption( s : Seq[LoggedTG]) : Option[DependencyGraph] = s match {

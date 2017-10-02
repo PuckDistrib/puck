@@ -168,7 +168,7 @@ class AutoSolveResultPanel[S]
     else new DummyResultPanel(beforeGraph)
 
   val successesPanel =
-    selectorPanelOrDummy(res.successes.nonEmpty, new SuccessSelector(res))
+    selectorPanelOrDummy(res.results.nonEmpty, new SuccessSelector(res))
 
   val failurePanel =
     selectorPanelOrDummy(res.failures.nonEmpty, new FailureSelector(res))
@@ -244,9 +244,9 @@ class FailureSelector[S](res : Search[DecoratedGraph[S]])
 
 class SuccessSelector[S](res : Search[DecoratedGraph[S]])
   extends SimpleElementSelector[SearchState[DecoratedGraph[S]]](StateSelected.apply) with Selector{
-  assert(res.successes.nonEmpty)
+  assert(res.results.nonEmpty)
 
-  setStatesList(res.successes)
+  setStatesList(res.results)
   def selectedResult = selectedState.success map (_.graph)
 }
 

@@ -60,9 +60,9 @@ object DependencyGraph {
 
     val engine =
       new SearchEngine(new DepthFirstSearchStrategy,
-        recordingComparatorControl, maxResult = Some(1))
+        recordingComparatorControl, maxResults = Some(1))
     engine.explore()
-    engine.successes.nonEmpty
+    engine.results.nonEmpty
   }
 
   def subGraph(fullGraph : DependencyGraph,

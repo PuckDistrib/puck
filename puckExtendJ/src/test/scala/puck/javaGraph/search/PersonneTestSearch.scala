@@ -50,7 +50,7 @@ object PersonneTestSearch {
     val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints)
     engine.explore()
 
-    SearchTest.printResult(engine.successes,
+    SearchTest.printResult(engine.results,
       engine.searchStrategy.SearchStateOrdering,
       scenario.fullName2id, constraints, filePaths: _*)
     }

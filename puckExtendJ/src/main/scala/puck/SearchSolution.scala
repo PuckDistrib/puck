@@ -112,8 +112,8 @@ object SearchSolution {
         logger.writeln("search start !")
         puck.util.Time.time(logger, PuckLog.defaultVerbosity)(engine.explore())
 
-        logger.writeln(engine.successes.size + " solutions found")
-        engine.successes  map (st => (st.uuid(), st.loggedResult)) foreach {
+        logger.writeln(engine.results.size + " solutions found")
+        engine.results  map (st => (st.uuid(), st.loggedResult)) foreach {
           case (id, LoggedSuccess(_, (g,_))) =>
             import puck.util.FileHelper.FileOps
             val recFile = p.workspace \  outputFolder \  s"$basename-solution-$id.pck"
