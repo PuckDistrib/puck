@@ -41,17 +41,17 @@ object PicoMoveTestSearch {
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
     val strategy = new AStarSearchStrategyGraphDisplay[Any](
       evaluator, Some(constraints),
-      1000, 1000, solsDir)
+      5, 10, solsDir)
 
 
-   val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
-     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
+  // val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
+  // constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
- //    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
- //     constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
+    val control = new BlindControl(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),
+      constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
-    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(2), Some(evaluator))
+    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, None, Some(evaluator))
     engine.explore()
 
     SearchTest.printResult(engine.results,

@@ -52,10 +52,12 @@ class BlindControl
   def initialState: DecoratedGraph[Option[ConcreteNode]] = (initialGraph, None)
 
   def nextStates(g: DependencyGraph)(violationTarget : ConcreteNode) : Seq[LoggedTry[DecoratedGraph[Option[ConcreteNode]]]] =
-    if(constraints.noForbiddenDependencies(g)) Seq()
-    else if(!isForbidden(g, violationTarget.id)) Seq(LoggedSuccess((g, None)))
-    else decorate(nextStates(violationTarget)(g.mileStone), Some(violationTarget))
-
+    if(constraints.noForbiddenDependencies(g))
+      Seq()
+    else if(!isForbidden(g, violationTarget.id))
+      Seq(LoggedSuccess((g, None)))
+    //else decorate(nextStates(violationTarget)(g.mileStone), Some(violationTarget))
+    else decorate(nextStates(violationTarget)(g), Some(violationTarget))
 
   def nextStates(state : DecoratedGraph[Option[ConcreteNode]]) : Seq[LoggedTry[DecoratedGraph[Option[ConcreteNode]]]] =
     state match {
