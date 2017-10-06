@@ -56,7 +56,8 @@ class ControlWithHeuristic
 
 
 
-  def nextStates(state : DecoratedGraph[Option[(ConcreteNode, AutomataState)]]) : Seq[LoggedTry[DecoratedGraph[Option[(ConcreteNode, AutomataState)]]]] = {
+  def nextStates(state : DecoratedGraph[Option[(ConcreteNode, AutomataState)]]) :
+                                          Seq[LoggedTry[DecoratedGraph[Option[(ConcreteNode, AutomataState)]]]] = {
     state match {
       case (g, Some((violationTarget, automataState))) => nextStates(g, violationTarget, automataState)
       case (g, None) => findTargets(g) flatMap (nextStates(g, _, 0))
