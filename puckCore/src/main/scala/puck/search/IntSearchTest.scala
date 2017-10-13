@@ -43,14 +43,13 @@ class IntControl
 }
 
 object IntSearch{
-
   val actionPlus : Int => Seq[LoggedTry[Int]] =
     i => Seq(LoggedSuccess(i + 1))
 
   val actionMoins : Int => Seq[LoggedTry[Int]] =
     i => Seq(LoggedSuccess(i - 1))
-
 }
+
 
 object IntSearchTest extends App {
 
@@ -58,6 +57,6 @@ object IntSearchTest extends App {
     new IntControl(0, 5), Some(1))
     println("launching search ... ")
     se.explore()
-    println("Explored States : " + se.exploredStates)
+    println("Explored States : " + se.numberOfExploredStates)
     println("Success depth : " + se.results.head.depth)
 }

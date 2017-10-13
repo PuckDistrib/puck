@@ -36,7 +36,7 @@ trait Search[Result]{
   def initialState : SearchState[Result]
   def results : Seq[SearchState[Result]]
   def failures : Seq[SearchState[Result]]
-  def exploredStates : Int
+  def numberOfExploredStates : Int
 
   def failuresByDepth : Map[Int, Seq[SearchState[Result]]] =
     failures.foldLeft(Map[Int, Seq[SearchState[Result]]]()){
@@ -114,7 +114,7 @@ class SearchEngine[T]
 
   def init() : Unit = ()
 
-  def exploredStates = numExploredStates
+  def numberOfExploredStates = numExploredStates
 
   def oneStep() : Unit= {
     val state = searchStrategy.popState()
@@ -148,6 +148,12 @@ trait SearchStrategy[T] {
   def canContinue : Boolean
   def popState() : SearchState[T]
 }
+class TaggedState[T] (t: T, tag : String) {
+  implicit def TtoTagged(t: T) = new TaggedState[T](t, "_")
+}
+
+
+
 
 
 

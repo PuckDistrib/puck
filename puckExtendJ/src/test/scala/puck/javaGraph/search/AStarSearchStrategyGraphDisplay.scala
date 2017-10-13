@@ -3,7 +3,8 @@ package puck.javaGraph.search
 import puck.TestUtils
 import puck.graph.constraints.ConstraintsMaps
 import puck.graph.io.DotHelper
-import puck.graph.{DecoratedGraphOps, _}
+//import puck.graph.{DecoratedGraphOps, _}
+import puck.graph.{DecoratedGraph,_}
 import puck.search.{AStarSearchStrategy, Evaluator, SearchState}
 import puck.Quick
 

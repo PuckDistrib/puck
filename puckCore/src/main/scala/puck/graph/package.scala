@@ -85,10 +85,11 @@ package object graph {
 
 
 
-  implicit class DecoratedGraphOps[T](val dg : DecoratedGraph[T]) extends  AnyVal {
+ /* implicit class DecoratedGraphOps[T](val dg : DecoratedGraph[T]) extends  AnyVal {
     def graph : DependencyGraph = dg._1
     def decoration : T = dg._2
   }
+  */
 
 
   implicit class LoggedOps[A](val lg: Logged[A]) extends AnyVal {
@@ -125,9 +126,5 @@ package object graph {
         case _ => None
       }
   }
-
-
-
-
 
 }
