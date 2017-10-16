@@ -156,8 +156,29 @@ object Tagged {
     implicit def untag[T](tt : Tagged[T]) :  T = tt.t
     implicit def untag[T](seq : Seq[LoggedTry[Tagged[T]]]) : Seq[LoggedTry[T]] =
       seq map (_ map (_.t))
+    implicit def tag[T] (seq : Seq[LoggedTry[T]]) : Seq[LoggedTry[Tagged[T]]] =
+      seq map (_ map (tag(_)))
 }
 
+
+trait TSearchControl[T] extends SearchControl[T] {
+  def nextTStates(t : T) : Seq[LoggedTry[Tagged[T]]] = nextStates(t)
+}
+
+trait TSearchStrategy[T] extends SearchStrategy[T]{
+
+}
+
+
+class TSearchEngine[T] (
+      override val searchStrategy: TSearchStrategy[T],
+      override val control : TSearchControl[T],
+      maxResults : Option[Int] = None, // default = all result
+      valuator : Option[Evaluator[T]] = None
+                       )
+  extends SearchEngine[T] (searchStrategy, control, maxResults, valuator)  {
+
+}
 
 
 

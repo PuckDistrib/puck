@@ -31,12 +31,14 @@ import puck.graph.{LoggedSuccess, LoggedTry}
 class IntControl
 (val initialState: Int,
   target : Int)
-  extends SearchControl[Int]{
+  extends TSearchControl[Int]{
 
   import IntSearch._
 
-
   def nextStates(i: Int): Seq[LoggedTry[Int]] = {
+    nextTStates(i)
+  }
+  override def nextTStates(i: Int): Seq[LoggedTry[Tagged[Int]]] = {
     if(i == target) Seq()
     else actionMoins(i) ++ actionPlus(i)
   }
@@ -44,11 +46,11 @@ class IntControl
 
 object IntSearch{
 
-  val actionPlus : Int => Seq[LoggedTry[Int]] =
-    i => Seq(LoggedSuccess(i + 1))
+  val actionPlus : Int => Seq[LoggedTry[Tagged[Int]]] =
+    i => Seq(LoggedSuccess(new Tagged[Int](i + 1,"+")))
 
-  val actionMoins : Int => Seq[LoggedTry[Int]] =
-    i => Seq(LoggedSuccess(i - 1))
+  val actionMoins : Int => Seq[LoggedTry[Tagged[Int]]] =
+    i => Seq(LoggedSuccess(new Tagged[Int](i - 1,"-")))
 
 }
 
