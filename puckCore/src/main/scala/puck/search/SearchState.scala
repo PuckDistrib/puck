@@ -34,8 +34,7 @@ import scalaz.{-\/, \/-}
 class SearchState[T]
 ( val id : Int,
   val prevState : Option[SearchState[T]],
-  val loggedResult : LoggedTry[T],
-  val transfo : String = ""
+  val loggedResult : LoggedTry[T]
 ){
 
   import scalaz.syntax.writer._
