@@ -149,8 +149,15 @@ trait SearchStrategy[T] {
   def popState() : SearchState[T]
 }
 
-class TaggedState[T] (t: T, tag : String)
+class Tagged[T] (var t: T, var tag : String)
 
-object TaggedState {
-    implicit def TtoTagged[T](t: T) = new TaggedState[T](t, "_")
+object Tagged {
+    implicit def tag[T](t: T) : Tagged[T] = new Tagged[T](t, "_")
+    implicit def untag[T](tt : Tagged[T]) :  T = tt.t
+    implicit def untag[T](seq : Seq[LoggedTry[Tagged[T]]]) : Seq[LoggedTry[T]] =
+      seq map (_ map (_.t))
 }
+
+
+
+
