@@ -153,11 +153,11 @@ class Tagged[T] (var t: T, var tag : String)
 
 object Tagged {
     implicit def tag[T](t: T) : Tagged[T] = new Tagged[T](t, "_")
-    implicit def untag[T](tt : Tagged[T]) :  T = tt.t
-    implicit def untag[T](seq : Seq[LoggedTry[Tagged[T]]]) : Seq[LoggedTry[T]] =
-      seq map (_ map (_.t))
     implicit def tag[T] (seq : Seq[LoggedTry[T]]) : Seq[LoggedTry[Tagged[T]]] =
       seq map (_ map (tag(_)))
+    implicit def untag[T](tt : Tagged[T]) :  T = tt.t
+    implicit def untag[T](seq : Seq[LoggedTry[Tagged[T]]]) : Seq[LoggedTry[T]] =
+      seq map (_ map (untag(_)))
 }
 
 
