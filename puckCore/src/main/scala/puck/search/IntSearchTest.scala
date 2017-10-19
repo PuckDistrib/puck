@@ -58,7 +58,7 @@ object IntSearch{
 object IntSearchTest extends App {
 
   val se = new SearchEngine[Tagged[Int]](new BreadthFirstSearchStrategy(),
-    new IntControl(new Tagged(0,""), new Tagged(5,"")), Some(2))
+    new IntControl(new Tagged(0,""), new Tagged(5,"")), Some(5))
     println("launching search ... ")
     se.explore()
     println("Explored States : " + se.exploredStates)
@@ -76,7 +76,7 @@ object PrintResults {
     ss.loggedResult match {
     case LoggedError (l) => println (l.toString () )
     case LoggedSuccess (r) => {
-        println (r.toString () )
+        println (r._2.toString () )
         ss.prevState match {
           case None => println ()
           case Some (ps) => printRes (ps)
