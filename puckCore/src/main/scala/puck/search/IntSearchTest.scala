@@ -28,21 +28,21 @@ package puck.search
 
 import puck.graph.{LoggedSuccess, LoggedTry}
 
+import scala.collection.mutable.ListBuffer
+
 class IntControl
-(val initialState: Int,
-  target : Int)
-  extends TSearchControl[Int]{
+(val initialState: Tagged[Int],
+  target : Tagged[Int])
+  extends SearchControl[Tagged[Int]]{
 
   import IntSearch._
 
-  def nextStates(i: Int): Seq[LoggedTry[Int]] = {
-    nextTStates(i)
-  }
-  override def nextTStates(i: Int): Seq[LoggedTry[Tagged[Int]]] = {
-    if(i == target) Seq()
-    else actionMoins(i) ++ actionPlus(i)
-  }
+   override def nextStates(ti: Tagged[Int]): Seq[LoggedTry[Tagged[Int]]] = {
+     if(ti.t == target.t) Seq()
+     else actionMoins(ti.t) ++ actionPlus(ti.t)
+   }
 }
+
 
 object IntSearch{
 
@@ -56,10 +56,19 @@ object IntSearch{
 
 object IntSearchTest extends App {
 
-  val se = new SearchEngine[Int](new BreadthFirstSearchStrategy(),
-    new IntControl(0, 5), Some(1))
+  val se = new SearchEngine[Tagged[Int]](new BreadthFirstSearchStrategy(),
+    new IntControl(new Tagged(0,""), new Tagged(5,"")), Some(1))
     println("launching search ... ")
     se.explore()
     println("Explored States : " + se.exploredStates)
     println("Success depth : " + se.results.head.depth)
+    PrintResults.printres(se.results)
+}
+
+object PrintResults {
+  def printres(res: ListBuffer[SearchState[Tagged[Int]]]): Unit = {
+    res foreach {
+      ss => println (ss.loggedResult.value.t + " : " + ss.loggedResult.value.tag)
+    }
+  }
 }

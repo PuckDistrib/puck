@@ -40,4 +40,3 @@ class BreadthFirstSearchStrategy[T] extends SearchStrategy[T] {
   def popState() : SearchState[T] =  remainingStates.dequeue()
 
 }
-

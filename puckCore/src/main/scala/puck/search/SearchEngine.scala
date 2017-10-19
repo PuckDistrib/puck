@@ -160,17 +160,17 @@ object Tagged {
       seq map (_ map (untag(_)))
 }
 
-
-trait TSearchControl[T] extends SearchControl[T] {
-  def nextTStates(t : T) : Seq[LoggedTry[Tagged[T]]] = nextStates(t)
-}
+/*
+trait TSearchControl[T <: Tagged[T]] extends SearchControl[Tagged[T]] {
+  def nextTStates(t : Tagged[T]) : Seq[LoggedTry[Tagged[T]]] = nextStates(t)
+} */
 
 trait TSearchStrategy[T] extends SearchStrategy[T]{
 
 }
 
 
-class TSearchEngine[T] (
+/*class TSearchEngine[T] (
       override val searchStrategy: TSearchStrategy[T],
       override val control : TSearchControl[T],
       maxResults : Option[Int] = None, // default = all result
@@ -178,7 +178,7 @@ class TSearchEngine[T] (
                        )
   extends SearchEngine[T] (searchStrategy, control, maxResults, valuator)  {
 
-}
+}*/
 
 
 
