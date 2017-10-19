@@ -26,9 +26,10 @@
 
 package puck.search
 
-import puck.graph.{LoggedSuccess, LoggedTry}
+import puck.graph.{LoggedSuccess, LoggedError, LoggedTry}
 
 import scala.collection.mutable.ListBuffer
+import scalaz.{-\/, \/-}
 
 class IntControl
 (val initialState: Tagged[Int],
@@ -62,13 +63,25 @@ object IntSearchTest extends App {
     se.explore()
     println("Explored States : " + se.exploredStates)
     println("Success depth : " + se.results.head.depth)
-    PrintResults.printres(se.results)
+    PrintResults.printListRes(se.results)
 }
 
 object PrintResults {
-  def printres(res: ListBuffer[SearchState[Tagged[Int]]]): Unit = {
+  def printListRes(res: ListBuffer[SearchState[Tagged[Int]]]): Unit = {
     res foreach {
-      ss => println (ss.loggedResult.value.t + " : " + ss.loggedResult.value.tag)
+      printRes(_)
+    }
+  }
+  def printRes(ss: SearchState[Tagged[Int]]): Unit  = {
+    ss.loggedResult match {
+    case LoggedError (l) => println (l.toString () )
+    case LoggedSuccess (r) => {
+        println (r.toString () )
+        ss.prevState match {
+          case None => println ()
+          case Some (ps) => printRes (ps)
+        }
+      }
     }
   }
 }

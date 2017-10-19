@@ -149,7 +149,10 @@ trait SearchStrategy[T] {
   def popState() : SearchState[T]
 }
 
-class Tagged[T] (var t: T, var tag : String)
+class Tagged[T] (var t: T, var tagg : String) {
+  override def toString() : String = return t.toString+" : "+tagg
+}
+
 
 object Tagged {
     implicit def tag[T](t: T) : Tagged[T] = new Tagged[T](t, "_")
