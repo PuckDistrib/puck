@@ -69,11 +69,17 @@ object IntSearchTest extends App {
 object PrintResults {
 
   def printListRes[T](res: ListBuffer[SearchState[Tagged[T]]]): Unit = {
-    res map (printRes(_))
+    res map (printResDeco(_))
   }
 
   def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
         ss.loggedResult map (println(_))
         ss.prevState map (printRes(_))
+  }
+
+  def printResDeco[T](ss: SearchState[Tagged[T]]) : Unit = {
+    println ("Solution:")
+    printRes(ss)
+    println()
   }
 }
