@@ -73,15 +73,7 @@ object PrintResults {
   }
 
   def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
-    ss.loggedResult match {
-    case LoggedError (l) => println (l.toString () )
-    case LoggedSuccess (r) => {
-        println (r._2.toString () )
-        ss.prevState match {
-          case None => println ()
-          case Some (ps) => printRes (ps)
-        }
-      }
-    }
+        ss.loggedResult map (println(_))
+        ss.prevState map (printRes(_))
   }
 }
