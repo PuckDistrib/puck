@@ -26,10 +26,9 @@
 
 package puck.search
 
-import puck.graph.{LoggedSuccess, LoggedError, LoggedTry}
+import puck.graph.{LoggedSuccess, LoggedTry}
 
 import scala.collection.mutable.ListBuffer
-import scalaz.{-\/, \/-}
 
 class IntControl
 (val initialState: Tagged[Int],
@@ -70,11 +69,19 @@ object PrintResults {
 
   def printListRes[T](res: ListBuffer[SearchState[Tagged[T]]]): Unit = {
     res map (printResDeco(_))
+    ()
   }
 
   def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
-        ss.loggedResult map (print(_))
-        ss.prevState map (printRes(_))
+    ss.loggedResult map (x=> println(x.getValue()))
+    printTags(ss)
+    ()
+  }
+
+  def printTags[T](ss: SearchState[Tagged[T]]): Unit  = {
+      ss.loggedResult map (print(_))
+      ss.prevState map (printTags(_))
+    ()
   }
 
   def printResDeco[T](ss: SearchState[Tagged[T]]) : Unit = {

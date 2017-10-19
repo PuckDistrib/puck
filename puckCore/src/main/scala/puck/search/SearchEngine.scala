@@ -149,8 +149,9 @@ trait SearchStrategy[T] {
   def popState() : SearchState[T]
 }
 
-class Tagged[T] (var t: T, var tagg : String) {
-  override def toString() : String = return /*t.toString+" : "+*/tagg
+class Tagged[T] (var t: T, var tag : String) {
+  override def toString() : String =  /*t.toString+" : "+*/ tag
+  def getValue() : T = t
 }
 
 

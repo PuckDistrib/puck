@@ -111,6 +111,7 @@ class SearchState[T]
 
   override def toString = uuid()
 
+
   var cid = -1
 
   def nextChildId() : Int = {
