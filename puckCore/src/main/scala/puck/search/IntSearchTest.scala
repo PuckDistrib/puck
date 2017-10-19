@@ -67,12 +67,12 @@ object IntSearchTest extends App {
 }
 
 object PrintResults {
-  def printListRes(res: ListBuffer[SearchState[Tagged[Int]]]): Unit = {
+  def printListRes[T](res: ListBuffer[SearchState[Tagged[T]]]): Unit = {
     res foreach {
       printRes(_)
     }
   }
-  def printRes(ss: SearchState[Tagged[Int]]): Unit  = {
+  def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
     ss.loggedResult match {
     case LoggedError (l) => println (l.toString () )
     case LoggedSuccess (r) => {
