@@ -73,7 +73,7 @@ object PrintResults {
   }
 
   def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
-        ss.loggedResult map (println(_))
+        ss.loggedResult map (print(_))
         ss.prevState map (printRes(_))
   }
 

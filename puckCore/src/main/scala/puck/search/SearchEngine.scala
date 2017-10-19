@@ -150,7 +150,7 @@ trait SearchStrategy[T] {
 }
 
 class Tagged[T] (var t: T, var tagg : String) {
-  override def toString() : String = return t.toString+" : "+tagg
+  override def toString() : String = return /*t.toString+" : "+*/tagg
 }
 
 
