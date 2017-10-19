@@ -58,7 +58,7 @@ object IntSearch{
 object IntSearchTest extends App {
 
   val se = new SearchEngine[Tagged[Int]](new BreadthFirstSearchStrategy(),
-    new IntControl(new Tagged(0,""), new Tagged(5,"")), Some(1))
+    new IntControl(new Tagged(0,""), new Tagged(5,"")), Some(2))
     println("launching search ... ")
     se.explore()
     println("Explored States : " + se.exploredStates)
