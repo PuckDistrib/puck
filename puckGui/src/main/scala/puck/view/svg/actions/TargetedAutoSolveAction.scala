@@ -52,7 +52,7 @@ object ResultFrame{
               (implicit graphUtils: GraphUtils,
                nodeKindIcons: NodeKindIcons): Frame = {
 
-    implicit val LoggedSuccess(_, (graph,_)) = res.initialState.loggedResult
+    implicit val LoggedSuccess(_, (graph,_,"")) = res.initialState.loggedResult
 
     new Frame(){
       frame =>
@@ -140,7 +140,8 @@ class TargetedAutoSolveAction
 
     val engine =
       new SearchEngine(
-        new BreadthFirstSearchStrategy[(DependencyGraph, Int)],
+        //new BreadthFirstSearchStrategy[(DependencyGraph, Int)],
+        new BreadthFirstSearchStrategy[(DependencyGraph, Int, String)],
         searchControlStrategy,
         None /*,
         evaluator = Some(GraphConstraintSolvingStateEvaluator)*/)

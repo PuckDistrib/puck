@@ -91,6 +91,7 @@ package object graph {
   implicit class DecoratedGraphOps[T](val dg : DecoratedGraph[T]) extends  AnyVal {
     def graph : DependencyGraph = dg._1
     def decoration : T = dg._2
+    def transfo : String = dg._3
   }
 
 
@@ -128,9 +129,5 @@ package object graph {
         case _ => None
       }
   }
-
-
-
-
 
 }

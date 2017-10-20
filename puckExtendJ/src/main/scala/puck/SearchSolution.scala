@@ -114,7 +114,7 @@ object SearchSolution {
 
         logger.writeln(engine.results.size + " solutions found")
         engine.results  map (st => (st.uuid(), st.loggedResult)) foreach {
-          case (id, LoggedSuccess(_, (g,_))) =>
+          case (id, LoggedSuccess(_, (g,_,_))) =>
             import puck.util.FileHelper.FileOps
             val recFile = p.workspace \  outputFolder \  s"$basename-solution-$id.pck"
             Recording.write(recFile.getAbsolutePath, dg2ast.nodesByName, g)

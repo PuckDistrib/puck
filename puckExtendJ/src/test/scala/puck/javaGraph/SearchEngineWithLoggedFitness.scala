@@ -21,9 +21,9 @@ class SearchEngineWithLoggedFitness[D]
                            c : LoggedTry[DecoratedGraph[D]]) = {
     val tmp = new SearchState(i, Some(parent), c)
     val c1 = c match {
-      case LoggedSuccess(log, (g, sn)) =>
+      case LoggedSuccess(log, (g, sn, transfo)) =>
         val v = Metrics.numViolations(g, constraints)
-        LoggedSuccess(log + s"$tmp (${SearchStateOrdering.evaluateWithDepthPenalty(tmp)}, ${v}V)\n", (g, sn))
+        LoggedSuccess(log + s"$tmp (${SearchStateOrdering.evaluateWithDepthPenalty(tmp)}, ${v}V)\n", (g, sn, transfo))
       case le => le
     }
     new SearchState(i, Some(parent), c1)
