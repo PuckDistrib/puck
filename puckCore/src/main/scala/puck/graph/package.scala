@@ -29,6 +29,8 @@ package puck
 import puck.graph.constraints.search.AutomataState
 import puck.graph.transformations.Recordable
 import puck.util.{Logged, LoggedEither}
+import puck.search.Tagged
+
 
 import scalaz.Scalaz._
 import scalaz._
@@ -81,6 +83,7 @@ package object graph {
   val Recording = transformations.Recording
 
   type DecoratedGraph[T] = (DependencyGraph, T)
+  type TaggedGraph[T] = Tagged[DecoratedGraph[T]]
   type SResult = DecoratedGraph[Option[(ConcreteNode, AutomataState)]]
 
 
