@@ -29,7 +29,7 @@ class TargetedBlindControl
   with Blind
   with CheckForbiddenDependency
   with TerminalStateWhenTargetedForbiddenDependencyRemoved[Unit] {
-  def initialState: DecoratedGraph[Unit] = (initialGraph, ())
+  def initialState: DecoratedGraph[Unit] = (initialGraph, (), "")
 
   def nextStates(t: DecoratedGraph[Unit]): Seq[LoggedTry[DecoratedGraph[Unit]]] =
     if(!isForbidden(t.graph, violationTarget.id)) Seq()
@@ -49,20 +49,20 @@ class BlindControl
   with TargetFinder
   with TerminalStateWhenNoForbiddenDependencies[Option[ConcreteNode]] {
 
-  def initialState: DecoratedGraph[Option[ConcreteNode]] = (initialGraph, None)
+  def initialState: DecoratedGraph[Option[ConcreteNode]] = (initialGraph, None, "")
 
   def nextStates(g: DependencyGraph)(violationTarget : ConcreteNode) : Seq[LoggedTry[DecoratedGraph[Option[ConcreteNode]]]] =
     if(constraints.noForbiddenDependencies(g))
       Seq()
     else if(!isForbidden(g, violationTarget.id))
-      Seq(LoggedSuccess((g, None)))
+      Seq(LoggedSuccess((g, None, "")))
     //else decorate(nextStates(violationTarget)(g.mileStone), Some(violationTarget))
     else decorate(nextStates(violationTarget)(g), Some(violationTarget))
 
   def nextStates(state : DecoratedGraph[Option[ConcreteNode]]) : Seq[LoggedTry[DecoratedGraph[Option[ConcreteNode]]]] =
     state match {
-      case (g, Some(violationTarget)) => nextStates(g)(violationTarget)
-      case (g, None) => findTargets(g) flatMap nextStates(g)
+      case (g, Some(violationTarget),_) => nextStates(g)(violationTarget)
+      case (g, None, _) => findTargets(g) flatMap nextStates(g)
     }
 
 }

@@ -82,7 +82,7 @@ package object graph {
   type Recording = Seq[Recordable]
   val Recording = transformations.Recording
 
-  type DecoratedGraph[T] = (DependencyGraph, T)
+  type DecoratedGraph[T] = (DependencyGraph, T, String)
   type TaggedGraph[T] = Tagged[DecoratedGraph[T]]
   type SResult = DecoratedGraph[Option[(ConcreteNode, AutomataState)]]
 

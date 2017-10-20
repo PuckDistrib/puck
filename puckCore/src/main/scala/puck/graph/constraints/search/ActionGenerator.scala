@@ -42,8 +42,8 @@ trait ActionGenerator {
   def mapSeqLoggedTry[S, T](s : Seq[LoggedTry[S]], f : S => T) : Seq[LoggedTry[T]] =
     s map (_ map f)
 
-  def decorate[T](s: Seq[LoggedTry[DependencyGraph]], t : T): Seq[LoggedTry[DecoratedGraph[T]]] =
-    mapSeqLoggedTry[DependencyGraph, DecoratedGraph[T]](s, (_, t))
+  def decorate[T](s: Seq[LoggedTry[DependencyGraph]], t : T, transfo : String =""): Seq[LoggedTry[DecoratedGraph[T]]] =
+    mapSeqLoggedTry[DependencyGraph, DecoratedGraph[T]](s, (_, t, transfo))
 
   val actionsGenerator = new SolvingActions(rules, virtualNodePolicicy, constraints)
 

@@ -47,16 +47,16 @@ trait Heuristic extends ActionGenerator {
    automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
     automataState match {
       case 0 =>
-        assertNonEmpty(decorate(moveAction(g, violationTarget), 3)
+        assertNonEmpty(decorate(moveAction(g, violationTarget), 3, "M")
           //          ++ decorate(moveContainerAction(g, violationTarget), 3)
-          ++ decorate(abstractAction(g, violationTarget), 2)
+          ++ decorate(abstractAction(g, violationTarget), 2, "A")
           //          ++ decorate(moveAction(g, violationTarget), 1))
          // ++ decorate(epsilon(g),3)
       )
     //  case 1 =>
     //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
       case 2 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3))
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3, "R"))
       case 3 => Seq()
       case _ => puck.error()
     }
@@ -159,7 +159,7 @@ class TargetedControlWithHeuristic
   with CheckForbiddenDependency
   with TerminalStateWhenTargetedForbiddenDependencyRemoved[AutomataState] {
 
-  def initialState: DecoratedGraph[AutomataState] = (initialGraph, 0)
+  def initialState: DecoratedGraph[AutomataState] = (initialGraph, 0, "")
 
   def nextStates(state : DecoratedGraph[AutomataState]) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
     if(!isForbidden(state.graph, violationTarget.id)) Seq()

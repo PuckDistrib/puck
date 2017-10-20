@@ -44,23 +44,23 @@ class ControlWithHeuristic
   with TargetFinder
   with TerminalStateWhenNoForbiddenDependencies[Option[(ConcreteNode, AutomataState)]]{
 
-  def initialState: DecoratedGraph[Option[(ConcreteNode, AutomataState)]] = (initialGraph, None)
+  def initialState: DecoratedGraph[Option[(ConcreteNode, AutomataState)]] = (initialGraph, None, "")
 
   def nextStates(g : DependencyGraph,
                  violationTarget : ConcreteNode,
                  automataState: AutomataState) : Seq[LoggedTry[DecoratedGraph[Option[(ConcreteNode, AutomataState)]]]] =
-    if(!isForbidden(g, violationTarget.id)) Seq(LoggedSuccess((g, None)))
+    if(!isForbidden(g, violationTarget.id)) Seq(LoggedSuccess((g, None, "")))
     else mapSeqLoggedTry[DecoratedGraph[AutomataState], DecoratedGraph[Option[(ConcreteNode, AutomataState)]]](
       hNextStates(g, violationTarget, automataState),
-      { case (g1, automataState1) => (g1, Some((violationTarget, automataState1)))})
+      { case (g1, automataState1, transfo) => (g1, Some((violationTarget, automataState1)),transfo    )})
 
 
 
   def nextStates(state : DecoratedGraph[Option[(ConcreteNode, AutomataState)]]) :
                                           Seq[LoggedTry[DecoratedGraph[Option[(ConcreteNode, AutomataState)]]]] = {
     state match {
-      case (g, Some((violationTarget, automataState))) => nextStates(g, violationTarget, automataState)
-      case (g, None) => findTargets(g) flatMap (nextStates(g, _, 0))
+      case (g, Some((violationTarget, automataState)), _) => nextStates(g, violationTarget, automataState)
+      case (g, None, _) => findTargets(g) flatMap (nextStates(g, _, 0))
     }
   }
 
