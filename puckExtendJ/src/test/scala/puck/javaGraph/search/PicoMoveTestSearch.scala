@@ -58,6 +58,8 @@ object PicoMoveTestSearch {
       engine.searchStrategy.SearchStateOrdering,
       scenario.fullName2id, constraints, filePaths:_*)
 
+    PrintResults.printListRes(engine.results)
+
 
   }
 }

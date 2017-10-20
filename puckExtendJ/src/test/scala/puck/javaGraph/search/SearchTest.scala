@@ -7,8 +7,9 @@ import puck.graph._
 import puck.graph.constraints.ConstraintsMaps
 import puck.graph.transformations.Recording
 import puck.javaGraph.ScenarioFactory
-import puck.search.{AStarSearchOrdering, SearchState}
+import puck.search.{AStarSearchOrdering, SearchState, Tagged}
 
+import scala.collection.mutable.ListBuffer
 import scalaz.\/-
 
 /**
@@ -83,4 +84,30 @@ object SearchTest {
     }
 
 
+}
+
+object PrintResults {
+
+  def printListRes[T](res: ListBuffer[SearchState[DecoratedGraph[T]]]): Unit = {
+    res map (printResDeco(_))
+    ()
+  }
+
+  def printRes[T](ss: SearchState[DecoratedGraph[T]]): Unit  = {
+    println(ss.uuid())
+    printTags(ss)
+    ()
+  }
+
+  def printTags[T](ss: SearchState[DecoratedGraph[T]]): Unit  = {
+    ss.loggedResult map (x => print(x._3))
+    ss.prevState map (printTags(_))
+    ()
+  }
+
+  def printResDeco[T](ss: SearchState[DecoratedGraph[T]]) : Unit = {
+    println ("Solution:")
+    printRes(ss)
+    println()
+  }
 }
