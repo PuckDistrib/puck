@@ -134,7 +134,6 @@ class SearchEngine[T]
     do oneStep()
     while (searchStrategy.canContinue && !enoughResults())
   }
-
 }
 
 trait SearchControl[T]{
@@ -153,36 +152,5 @@ class Tagged[T] (var t: T, var tag : String) {
   override def toString() : String =  /*t.toString+" : "+*/ tag
   def getValue() : T = t
 }
-
-
-object Tagged {
-    implicit def tag[T](t: T) : Tagged[T] = new Tagged[T](t, "_")
-    implicit def tag[T] (seq : Seq[LoggedTry[T]]) : Seq[LoggedTry[Tagged[T]]] =
-      seq map (_ map (tag(_)))
-    implicit def untag[T](tt : Tagged[T]) :  T = tt.t
-    implicit def untag[T](seq : Seq[LoggedTry[Tagged[T]]]) : Seq[LoggedTry[T]] =
-      seq map (_ map (untag(_)))
-}
-
-/*
-trait TSearchControl[T <: Tagged[T]] extends SearchControl[Tagged[T]] {
-  def nextTStates(t : Tagged[T]) : Seq[LoggedTry[Tagged[T]]] = nextStates(t)
-} */
-
-trait TSearchStrategy[T] extends SearchStrategy[T]{
-
-}
-
-
-/*class TSearchEngine[T] (
-      override val searchStrategy: TSearchStrategy[T],
-      override val control : TSearchControl[T],
-      maxResults : Option[Int] = None, // default = all result
-      valuator : Option[Evaluator[T]] = None
-                       )
-  extends SearchEngine[T] (searchStrategy, control, maxResults, valuator)  {
-
-}*/
-
 
 
