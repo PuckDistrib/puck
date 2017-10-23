@@ -24,7 +24,7 @@ class SearchEngineWithLoggedFitness[D]
     val c1 = c match {
       case LoggedSuccess(log, (g, sn, transfo)) =>
         val v = Metrics.numViolations(g, constraints)
-        LoggedSuccess(log + s" ${PrintResults.printRes(tmp)}: $tmp (${SearchStateOrdering.evaluateWithDepthPenalty(tmp)}, ${v}V)\n", (g, sn, transfo))
+        LoggedSuccess(log + PrintResults.printRes(tmp) + s" $tmp (${SearchStateOrdering.evaluateWithDepthPenalty(tmp)}, ${v}V)\n", (g, sn, transfo))
       case le => le
     }
     new SearchState(i, Some(parent), c1)

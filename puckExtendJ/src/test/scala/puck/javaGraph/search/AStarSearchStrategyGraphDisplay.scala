@@ -34,7 +34,7 @@ class AStarSearchStrategyGraphDisplayOnly[T]
           val v = Metrics.numViolations(dg.graph, scm.get)
           //print(Console.BLUE + rs.loggedResult.toString + Console.RESET)
           rs.loggedResult.value.toString
-          print(s"$rs (${SearchStateOrdering.evaluateWithDepthPenalty(rs)}, ${v}V) / ")
+          print(PrintResults.printRes(rs) + s" $rs (${SearchStateOrdering.evaluateWithDepthPenalty(rs)}, ${v}V) / ")
       }
       println()
     }

@@ -22,8 +22,6 @@ object SearchTest {
   var solsDir = outDir + File.separator + "sols"
   val srcDir = outDir + File.separator + "src"
 
-
-
   def printResult[T](res : Iterable[SearchState[DecoratedGraph[T]]],
                      ordering : AStarSearchOrdering[DecoratedGraph[T]],
                      fullName2id : Map[String, NodeId],
@@ -93,17 +91,29 @@ object PrintResults {
     ()
   }
 
-  def printRes[T](ss: SearchState[DecoratedGraph[T]]): Unit  = {
-    println(ss.uuid())
+  def printRes[T](ss: SearchState[DecoratedGraph[T]]): String  = {
     printTags(ss)
-    ()
+
   }
 
-  def printTags[T](ss: SearchState[DecoratedGraph[T]]): Unit  = {
+  def printTags[T](ss: SearchState[DecoratedGraph[T]]): String  = {
+    val v1 = ss.loggedResult map (x =>  x._3)
+    val v2 = ss.prevState map (printTags(_))
+    (v1,v2) match {
+      case (LoggedSuccess(_,s1),Some(s2)) => s2+s1
+      case (LoggedSuccess(_,s1),None) => s1
+      case (_,_) => ""
+    }
+  }
+
+  /*
+    def printTags[T](ss: SearchState[DecoratedGraph[T]]): Unit  = {
+
     ss.loggedResult map (x => print(x._3))
     ss.prevState map (printTags(_))
     ()
   }
+*/
 
   def printResDeco[T](ss: SearchState[DecoratedGraph[T]]) : Unit = {
     println ("Solution:")
