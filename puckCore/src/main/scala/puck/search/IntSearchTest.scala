@@ -74,16 +74,22 @@ object IntPrintResults {
 
   def printRes[T](ss: SearchState[Tagged[T]]): Unit  = {
     ss.loggedResult map (x=> println(x.getValue()))
-    printTags(ss)
+    print(getTags(ss))
     ()
   }
 
-  def printTags[T](ss: SearchState[Tagged[T]]): Unit  = {
-      ss.loggedResult map (print(_))
-      ss.prevState map (printTags(_))
-    ()
-  }
 
+  def getTags[T](ss: SearchState[Tagged[T]]): String  = {
+    //ss.loggedResult map (print(_))
+    //ss.prevState map (getTags(_))
+    val tags = ss.prevState map (getTags(_))
+    val s = ss.loggedResult match {
+      case LoggedSuccess(log, t) => s"${t.tag}"
+      case le => ""
+    }
+    (s + (tags map (x => x) getOrElse ""))
+    // s |+| tags
+  }
   def printResDeco[T](ss: SearchState[Tagged[T]]) : Unit = {
     println ("Solution:")
     printRes(ss)
