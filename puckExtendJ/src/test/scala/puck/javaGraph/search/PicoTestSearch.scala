@@ -41,7 +41,7 @@ object PicoTestSearch {
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
     val strategy = new AStarSearchStrategyGraphDisplay[Any](
       evaluator, Some(constraints),
-      10, 100, solsDir)
+      1000, 1000, solsDir)
 
 
     val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),

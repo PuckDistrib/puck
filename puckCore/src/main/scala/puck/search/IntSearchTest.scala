@@ -62,10 +62,10 @@ object IntSearchTest extends App {
     se.explore()
     println("Explored States : " + se.exploredStates)
     println("Success depth : " + se.results.head.depth)
-    PrintResults.printListRes(se.results)
+    IntPrintResults.printListRes(se.results)
 }
 
-object PrintResults {
+object IntPrintResults {
 
   def printListRes[T](res: ListBuffer[SearchState[Tagged[T]]]): Unit = {
     res map (printResDeco(_))
