@@ -7,7 +7,7 @@ import puck.graph._
 import puck.graph.constraints.ConstraintsMaps
 import puck.graph.transformations.Recording
 import puck.javaGraph.ScenarioFactory
-import puck.search.{AStarSearchOrdering, SearchState, Tagged}
+import puck.search.{AStarSearchOrdering, SearchState}
 
 import scala.collection.mutable.ListBuffer
 import scalaz.\/-
@@ -91,11 +91,6 @@ object PrintResults {
     ()
   }
 
-  def getRes[T](ss: SearchState[DecoratedGraph[T]]): String  = {
-    getTags(ss)
-
-  }
-
   def getTags[T](ss: SearchState[DecoratedGraph[T]]): String  = {
     val v1 = ss.loggedResult map (x =>  x._3)
     val v2 = ss.prevState map (getTags(_))
@@ -117,7 +112,7 @@ object PrintResults {
 
   def printResDeco[T](ss: SearchState[DecoratedGraph[T]]) : Unit = {
     println ("Solution:")
-    print(getRes(ss))
+    print(getTags(ss))
     println()
   }
 }

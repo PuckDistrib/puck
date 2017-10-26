@@ -5,7 +5,6 @@ import puck.graph.constraints.ConstraintsMaps
 import puck.graph.io.DotHelper
 import puck.graph.{DecoratedGraphOps, _}
 import puck.search.{AStarSearchStrategy, Evaluator, SearchState}
-import puck.Quick
 
 import scalaz.\/-
 
@@ -34,7 +33,7 @@ class AStarSearchStrategyGraphDisplayOnly[T]
           val v = Metrics.numViolations(dg.graph, scm.get)
           //print(Console.BLUE + rs.loggedResult.toString + Console.RESET)
           rs.loggedResult.value.toString
-          print(PrintResults.getRes(rs) + s" $rs (${SearchStateOrdering.evaluateWithDepthPenalty(rs)}, ${v}V) / ")
+          print(PrintResults.getTags(rs) + s" $rs (${SearchStateOrdering.evaluateWithDepthPenalty(rs)}, ${v}V) / ")
       }
       println()
     }
