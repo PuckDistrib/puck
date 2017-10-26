@@ -57,7 +57,7 @@ trait Heuristic extends ActionGenerator {
     //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
       case 2 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3, "R"))
-      case 3 => decorate(epsilon(g),0)
+      case 3 => decorate(epsilon(g),0) // Seq()
       case _ => puck.error()
     }
 
