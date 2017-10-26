@@ -52,6 +52,7 @@ class ControlWithHeuristic
     if(!isForbidden(g, violationTarget.id)) Seq(LoggedSuccess((g, None, "")))
     else mapSeqLoggedTry[DecoratedGraph[AutomataState], DecoratedGraph[Option[(ConcreteNode, AutomataState)]]](
       hNextStates(g, violationTarget, automataState),
+      //{ case (g1, automataState1, transfo) => if (automataState1 == 3)  (g1, Some((violationTarget, 0)),transfo    ) else (g1, Some((violationTarget, automataState1)),transfo    )})
       { case (g1, automataState1, transfo) => (g1, Some((violationTarget, automataState1)),transfo    )})
 
 
