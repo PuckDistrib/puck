@@ -117,7 +117,7 @@ object PrintResults {
 
   def printResDeco[T](ss: SearchState[DecoratedGraph[T]]) : Unit = {
     println ("Solution:")
-    printRes(ss)
+    print(printRes(ss))
     println()
   }
 }
