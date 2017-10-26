@@ -91,14 +91,14 @@ object PrintResults {
     ()
   }
 
-  def printRes[T](ss: SearchState[DecoratedGraph[T]]): String  = {
-    printTags(ss)
+  def getRes[T](ss: SearchState[DecoratedGraph[T]]): String  = {
+    getTags(ss)
 
   }
 
-  def printTags[T](ss: SearchState[DecoratedGraph[T]]): String  = {
+  def getTags[T](ss: SearchState[DecoratedGraph[T]]): String  = {
     val v1 = ss.loggedResult map (x =>  x._3)
-    val v2 = ss.prevState map (printTags(_))
+    val v2 = ss.prevState map (getTags(_))
     (v1,v2) match {
       case (LoggedSuccess(_,s1),Some(s2)) => s2+s1
       case (LoggedSuccess(_,s1),None) => s1
@@ -117,7 +117,7 @@ object PrintResults {
 
   def printResDeco[T](ss: SearchState[DecoratedGraph[T]]) : Unit = {
     println ("Solution:")
-    print(printRes(ss))
+    print(getRes(ss))
     println()
   }
 }
