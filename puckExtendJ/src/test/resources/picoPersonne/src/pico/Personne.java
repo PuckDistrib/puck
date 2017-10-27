@@ -2,5 +2,6 @@ package src.pico;
 
 public class Personne {
 	private String nom = "toto";
-  public String teki() { return nom;}
+	String getNom() {return this.nom;}
+  public String teki() { return this.getNom();}
 }
