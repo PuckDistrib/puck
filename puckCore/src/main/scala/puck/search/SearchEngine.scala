@@ -79,7 +79,7 @@ class SearchEngine[T]
       case Some(ev) =>
         resState =>
           if(results.forall(!ev.equals(_, resState)) && !enoughResults()) {
-            print(s"result: $resState ")
+            println(s"result: $resState ")
             ignore(results += resState)
           }
     }
