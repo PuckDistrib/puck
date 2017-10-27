@@ -61,17 +61,14 @@ trait Heuristic extends ActionGenerator {
 
     automataState match {
       case 0 =>
-        assertNonEmpty(decorate(moveAction(g, violationTarget), 3, "M"+vtt)
-          //          ++ decorate(moveContainerAction(g, violationTarget), 3)
-          ++ decorate(abstractAction(g, violationTarget), 2, "A"+vtt)
-          //          ++ decorate(moveAction(g, violationTarget), 1))
-          // ++ decorate(epsilon(g),3)
+        assertNonEmpty(decorate(moveAction(g, violationTarget), 2, "M"+vtt)
+          ++ decorate(abstractAction(g, violationTarget), 1, "A"+vtt)
+//          ++ decorate(abstractContainerAction(g, violationTarget), 1, "K"+vtt)
+//          ++ decorate(moveContainerAction(g, violationTarget), 2, "C"+vtt)
         )
-      //  case 1 =>
-      //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
-      case 2 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 3, "R"+vtt))
-      case 3 => decorate(epsilon(g), 0, ".") // Seq()
+      case 1 =>
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 2, "R"+vtt))
+      case 2 => decorate(epsilon(g), 0, ".") // Seq()
       case _ => puck.error()
     }
   }
