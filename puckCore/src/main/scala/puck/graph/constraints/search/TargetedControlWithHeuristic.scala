@@ -46,17 +46,17 @@ trait Heuristic extends ActionGenerator {
    violationTarget : ConcreteNode,
    automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] = {
     val vtt = violationTarget.kind.kindType match {
-      case TypeDecl => "TD"
-      case NameSpace => "NS"
-      case TypeVariableKT => "KT"
-      case InstanceTypeDecl => "IT"
-      case TypeConstructor => "TC"
-      case InstanceValue => "IV"
-      case StableValue => "SV"
-      case LocalValue => "LV"
-      case Parameter => "P"
-      case ValueDef => "VD"
-      case UnknownKindType => "U"
+      case TypeDecl => "td"
+      case NameSpace => "ns"
+      case TypeVariableKT => "kt"
+      case InstanceTypeDecl => "it"
+      case TypeConstructor => "tc"
+      case InstanceValue => "iv"
+      case StableValue => "sv"
+      case LocalValue => "lv"
+      case Parameter => "p"
+      case ValueDef => "vd"
+      case UnknownKindType => "u"
     }
 
     println(vtt.toString)
@@ -72,7 +72,7 @@ trait Heuristic extends ActionGenerator {
       //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
       case 2 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 3, "R"+vtt))
-      case 3 => decorate(epsilon(g), 0, "e") // Seq()
+      case 3 => decorate(epsilon(g), 0, ".") // Seq()
       case _ => puck.error()
     }
   }
