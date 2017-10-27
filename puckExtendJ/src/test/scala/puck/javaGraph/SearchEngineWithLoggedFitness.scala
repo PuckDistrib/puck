@@ -2,7 +2,6 @@ package puck.javaGraph
 
 import puck.graph.{LoggedSuccess, Metrics, _}
 import puck.graph.constraints.ConstraintsMaps
-import puck.javaGraph.search.PrintResults
 import puck.search._
 
 /**

@@ -1,4 +1,4 @@
 import ['src', 'src.pico']
-prives = ['Personne']
+prives = ['Personne.teki()']
 clients = ['src.pico']
 hide prives from clients

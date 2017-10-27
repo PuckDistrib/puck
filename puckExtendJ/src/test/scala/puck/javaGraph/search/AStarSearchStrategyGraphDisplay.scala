@@ -4,7 +4,7 @@ import puck.TestUtils
 import puck.graph.constraints.ConstraintsMaps
 import puck.graph.io.DotHelper
 import puck.graph.{DecoratedGraphOps, _}
-import puck.search.{AStarSearchStrategy, Evaluator, SearchState}
+import puck.search.{AStarSearchStrategy, Evaluator, SearchState,PrintResults}
 
 import scalaz.\/-
 

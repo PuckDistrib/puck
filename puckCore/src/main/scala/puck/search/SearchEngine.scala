@@ -28,6 +28,7 @@ package puck.search
 
 import puck._
 import puck.graph.{LoggedSuccess, LoggedTry}
+import puck.search.PrintResults
 
 import scala.collection.mutable
 import scalaz.{-\/, \/-}
@@ -78,7 +79,7 @@ class SearchEngine[T]
       case Some(ev) =>
         resState =>
           if(results.forall(!ev.equals(_, resState)) && !enoughResults()) {
-            println(s"result: $resState")
+            print(s"result: $resState ")
             ignore(results += resState)
           }
     }
