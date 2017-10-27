@@ -44,22 +44,38 @@ trait Heuristic extends ActionGenerator {
   def hNextStates
   (g : DependencyGraph,
    violationTarget : ConcreteNode,
-   automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] =
+   automataState : AutomataState) : Seq[LoggedTry[DecoratedGraph[AutomataState]]] = {
+    val vtt = violationTarget.kind.kindType match {
+      case TypeDecl => "TD"
+      case NameSpace => "NS"
+      case TypeVariableKT => "KT"
+      case InstanceTypeDecl => "IT"
+      case TypeConstructor => "TC"
+      case InstanceValue => "IV"
+      case StableValue => "SV"
+      case LocalValue => "LV"
+      case Parameter => "P"
+      case ValueDef => "VD"
+      case UnknownKindType => "U"
+    }
+
+    println(vtt.toString)
     automataState match {
       case 0 =>
-        assertNonEmpty(decorate(moveAction(g, violationTarget), 3, "M")
+        assertNonEmpty(decorate(moveAction(g, violationTarget), 3, "M"+vtt)
           //          ++ decorate(moveContainerAction(g, violationTarget), 3)
-          ++ decorate(abstractAction(g, violationTarget), 2, "A")
+          ++ decorate(abstractAction(g, violationTarget), 2, "A"+vtt)
           //          ++ decorate(moveAction(g, violationTarget), 1))
-         // ++ decorate(epsilon(g),3)
-      )
-    //  case 1 =>
-    //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
+          // ++ decorate(epsilon(g),3)
+        )
+      //  case 1 =>
+      //    assertNonEmpty(decorate(abstractAction(g,violationTarget),2))
       case 2 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget),3, "R"))
-      case 3 => decorate(epsilon(g),0,"e") // Seq()
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 3, "R"+vtt))
+      case 3 => decorate(epsilon(g), 0, "e") // Seq()
       case _ => puck.error()
     }
+  }
 
 
 /*  def hNextStates
