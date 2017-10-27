@@ -59,7 +59,6 @@ trait Heuristic extends ActionGenerator {
       case UnknownKindType => "u"
     }
 
-    println(vtt.toString)
     automataState match {
       case 0 =>
         assertNonEmpty(decorate(moveAction(g, violationTarget), 3, "M"+vtt)
