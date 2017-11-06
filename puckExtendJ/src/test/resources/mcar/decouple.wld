@@ -1,0 +1,4 @@
+import ['src']
+prives = ['A.m1(void)']
+clients = ['A']
+hide prives from clients
