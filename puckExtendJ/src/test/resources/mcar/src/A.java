@@ -1,4 +1,4 @@
-package mcar.src;
+package src;
 public class A {
     public void m1() {}
     public void m() {

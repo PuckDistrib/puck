@@ -1,4 +1,5 @@
-import ['mcar.src']
-prives = ['A.m1(void)']
+import ['src']
+prives = ['A.m1()']
 clients = ['A']
 hide prives from clients
+hide clients but-not-from r:src
