@@ -179,7 +179,7 @@ class PuckInterfacePanel
       contents += new Button() {
         val b : Button = this
         action = new Action("Save refactoring plan") {
-           enabled = false // added by cedric to disable the button
+           enabled = true // false added by cedric to disable the button
           def apply(): Unit = control.sProject foreach { p =>
             saveFile(p.workspace, b.peer) match {
               case None => publisher publish Log("no file selected")
@@ -192,7 +192,7 @@ class PuckInterfacePanel
       contents += new Button() {
         val b : Button = this
         action = new Action("Load refactoring plan") {
-          enabled = false // added by cedric to disable the button
+          enabled = true // false added by cedric to disable the button
           def apply(): Unit =  control.sProject foreach { p =>
             openFile(p.workspace, b.peer) match {
               case None => publisher publish Log("no file selected")
@@ -216,11 +216,11 @@ class PuckInterfacePanel
 
     }
 
-    contents += makeButton("Search", "", false){ // parameter "false" added by cedric to disable the button
+    contents += makeButton("Search", "", true){ // parameter "false" added by cedric to disable the button
       () => control.search()
     }
 
-    contents += makeButton("Show recording", "", false){ // parameter "false" added by cedric to disable the button
+    contents += makeButton("Show recording", "", true){ // parameter "false" added by cedric to disable the button
       control.printRecording
     }
 
@@ -268,7 +268,7 @@ class PuckInterfacePanel
     contents += testCommutativityCB
 
     ignore(contents += makeButton("Generate Code",
-      "Apply transformations on the code", false)( // parameter "false" added by cedric to disable the button
+      "Apply transformations on the code", true)( // parameter "false" added by cedric to disable the button
       () =>publisher publish
         GenCode(compareOutput = testCommutativityCB.selected)))
   }
