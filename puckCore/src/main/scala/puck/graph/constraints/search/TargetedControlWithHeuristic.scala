@@ -59,17 +59,17 @@ trait Heuristic extends ActionGenerator {
       case UnknownKindType => "u"
     }*/
 
-    val vt = violationTarget.name
+    val vtn = violationTarget.name
 
     automataState match {
       case 0 =>
-        assertNonEmpty(decorate(moveAction(g, violationTarget), 2, " M:"+vt)
-          ++ decorate(abstractAction(g, violationTarget), 1, " A:"+vt)
-          ++ decorate(abstractContainerAction(g, violationTarget), 1, " K:"+vt)
-          ++ decorate(moveContainerAction(g, violationTarget), 2, " C:"+vt)
+        assertNonEmpty(decorate(moveAction(g, violationTarget), 2, " M:"+vtn)
+          ++ decorate(abstractAction(g, violationTarget), 1, " A:"+vtn)
+          ++ decorate(abstractContainerAction(g, violationTarget), 1, " K:"+vtn)
+          ++ decorate(moveContainerAction(g, violationTarget), 2, " C:"+vtn)
         )
       case 1 =>
-        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 2, " R:"+vt))
+        assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 2, " R:"+vtn))
       case 2 => decorate(epsilon(g), 0, ".") // Seq()
       case _ => puck.error()
     }
