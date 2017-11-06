@@ -38,7 +38,7 @@ object BridgeTestSearch {
     val evaluator = DecoratedGraphEvaluator.equalityByMapping[Any](fitness1)
     val strategy = new AStarSearchStrategyGraphDisplay[Any](
       evaluator, Some(constraints),
-      100, 20, solsDir)
+      5, 20, solsDir)
 
 
     val control = new ControlWithHeuristic(Rules, scenario.graph.newGraph(mutabilitySet = scenario.initialMutability),

@@ -65,12 +65,13 @@ trait Heuristic extends ActionGenerator {
       case 0 =>
         assertNonEmpty(decorate(moveAction(g, violationTarget), 2, " M:"+vtn)
           ++ decorate(abstractAction(g, violationTarget), 1, " A:"+vtn)
-      //    ++ decorate(abstractContainerAction(g, violationTarget), 1, " K:"+vtn)
-      //    ++ decorate(moveContainerAction(g, violationTarget), 2, " C:"+vtn)
+         // ++ decorate(abstractContainerAction(g, violationTarget), 1, " K:"+vtn)
+          ++ decorate(moveContainerAction(g, violationTarget), 3, " C:"+vtn)
         )
       case 1 =>
         assertNonEmpty(decorate(redirectTowardAbstractions(g, violationTarget), 2, " R:"+vtn))
       case 2 => decorate(epsilon(g), 0, ".") // Seq()
+      case 3 => assertNonEmpty(decorate(abstractAction(g, violationTarget), 1, " A:"+vtn))
       case _ => puck.error()
     }
   }
