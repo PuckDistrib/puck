@@ -48,7 +48,7 @@ object MCARTestSearch {
     //   constraints, NoVirtualNodes, violationsKindPriority).asInstanceOf[SearchControl[DecoratedGraph[Any]]]
 
     // SearchEngine(strategy, control, Some(1)) :  Some(n) => n sol(s), None => all sols
-    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(5), Some(evaluator))
+    val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(2), Some(evaluator))
     engine.explore()
 
     PrintResults.printListRes(engine.results)
