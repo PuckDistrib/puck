@@ -215,7 +215,6 @@ class SolvingActions
       case LoggedError(log, err) =>
         Stream(LoggedError(lg + log, err))
       case LoggedSuccess(log, (newCter, g)) =>
-        val v = inHierarchy(wronglyContained,g0)
         val oldCter = g.container_!(wronglyContained.id)
         doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
     }
