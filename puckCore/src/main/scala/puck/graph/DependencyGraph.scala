@@ -559,7 +559,31 @@ class DependencyGraph private
   def definitionOf_!(declId : NodeId) : NodeId =
     definitionOf(declId).get
 
+  def isMethodInHierarchy(n: ConcreteNode): Boolean = {
+    if (n.kind.kindType == InstanceValue) {
+      val mc = container(n.id)
+      val sigMethod = signature(n)
+      for (cn <- concreteNodes) {
+        mc match {
+          case Some(mcn) => if (isa_*(mcn,cn.id) || isa_*(cn.id, mcn)) {
+            val ccn = content(cn.id)
+            for (elcn <- ccn) {
+              val node = getNode(elcn)
+              if (node.kind.kindType == InstanceValue) {
+                val sigNode = signature(node)
+                if (sigNode == sigMethod) return true
+              }
+            }
+          }
+        }
+      }
+    }
+    false
+  }
 
+  def signature(node: DGNode) = {
+    node.kind.kindType.toString + '.' + node.name + '(' + parametersOf(node.id) + ')'
+  }
 
   def parametersOf(declId : NodeId)  : List[NodeId] = edges.parameters.getFlat(declId)
 

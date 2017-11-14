@@ -204,6 +204,7 @@ class SolvingActions
   }
 
 
+
   def move
   ( g0 : DependencyGraph,
     wronglyContained : ConcreteNode
@@ -211,14 +212,14 @@ class SolvingActions
     val lg = s"trying to move $wronglyContained, searching host\n"
     hostIntro(g0, wronglyContained) ++
       findHost(g0, wronglyContained) flatMap {
-        case LoggedError(log, err) =>
-          Stream(LoggedError(lg + log, err))
-        case LoggedSuccess(log, (newCter, g)) =>
-            val oldCter = g.container_!(wronglyContained.id)
-            doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
-      }
+      case LoggedError(log, err) =>
+        Stream(LoggedError(lg + log, err))
+      case LoggedSuccess(log, (newCter, g)) =>
+        val v = inHierarchy(wronglyContained,g0)
+        val oldCter = g.container_!(wronglyContained.id)
+        doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
+    }
   }
-
 
   def doMove
   ( g: DependencyGraph,
