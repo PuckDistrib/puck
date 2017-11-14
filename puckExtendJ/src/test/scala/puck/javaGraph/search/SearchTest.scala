@@ -46,7 +46,7 @@ object SearchTest {
           val result = solsDir + File.separator + "result#" + fit + "#" + ss.uuid() + ".pck"
           Recording.write(result, fullName2id, dg.graph)
 
-
+/*
           val s = new ScenarioFactory(filePaths: _*)
           val r = Recording.load(s"$result", s.fullName2id)(s.logger)
           import Recording.RecordingOps
@@ -57,7 +57,7 @@ object SearchTest {
         //println("path: "+resdir + File.separator + "nano.dot")
         //          println("Graphs equality? "+Mapping.equals(sf.graph, s.graph))
 
-
+*/
       }
     }
   }
