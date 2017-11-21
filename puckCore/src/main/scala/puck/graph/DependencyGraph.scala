@@ -575,17 +575,23 @@ class DependencyGraph private
               val node = getNode(elcn)
               if (node.kind.kindType == InstanceValue) {
                 val sigNode = signature(node)
-                if (sigNode == sigMethod) return Some(cn)
+                if (sigNode == sigMethod) {
+                  println(getNode(mcn).name+" and "+cn.name+" contain "+signature(n))
+                  return Some(cn)
+                }
               }
             }
           }
+          case None => return None
         }
       }
     }
+    println(signature(n)+ " is not in hierarchy")
     None
   }
 
-  def areInSameHierarchy(n1: ConcreteNode, n2: ConcreteNode): Boolean = {
+  def areInSameHierarchy(n1: DGNode, n2: DGNode): Boolean = {
+    println(n1.name+" is in same hierarchy as "+n2.name)
     (isa_*(n1.id,n2.id) || isa_*(n2.id,n1.id))
   }
 

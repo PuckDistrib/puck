@@ -205,6 +205,7 @@ class SolvingActions
 
 
 
+
   def move
   ( g0 : DependencyGraph,
     wronglyContained : ConcreteNode
@@ -219,7 +220,35 @@ class SolvingActions
         doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
     }
   }
-
+/*
+// A TESTER: COMPILE MAIS NE DONNE PAS ENCORE LES RESULTATS ATTENDUS A L'EXECUTION
+  def move
+  ( g0 : DependencyGraph,
+    wronglyContained : ConcreteNode
+  ) : Stream[LoggedTry[(NodeId, DependencyGraph)]] = {
+    val lg = s"trying to move $wronglyContained, searching host\n"
+    hostIntro(g0, wronglyContained) ++
+      findHost(g0, wronglyContained) flatMap {
+      case LoggedError(log, err) =>
+        Stream(LoggedError(lg + log, err))
+      case LoggedSuccess(log, (newCter, g)) => {
+        val oldCter = g.container_!(wronglyContained.id)
+        if (wronglyContained.kind.kindType == InstanceValue) {
+          g0.isMethodInHierarchy(wronglyContained) match {
+            case Some(nih) =>
+              if (g.areInSameHierarchy(nih, g.getNode(newCter)))
+                doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
+              else
+                Stream()
+            case None => doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
+          }
+        } else {
+          doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
+        }
+      }
+    }
+  }
+*/
   def doMove
   ( g: DependencyGraph,
     wronglyContained : ConcreteNode,
