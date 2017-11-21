@@ -559,7 +559,11 @@ class DependencyGraph private
   def definitionOf_!(declId : NodeId) : NodeId =
     definitionOf(declId).get
 
-  def isMethodInHierarchy(n: ConcreteNode): Boolean = {
+  // if n is a method that overrides another or that is overriden, it returns a node from the hierarchy that:
+  //        - contains the method n overrides
+  //        - contains a method overridden by n
+  // if not, it returns None
+  def isMethodInHierarchy(n: ConcreteNode): Option[ConcreteNode] = {
     if (n.kind.kindType == InstanceValue) {
       val mc = container(n.id)
       val sigMethod = signature(n)
@@ -571,14 +575,18 @@ class DependencyGraph private
               val node = getNode(elcn)
               if (node.kind.kindType == InstanceValue) {
                 val sigNode = signature(node)
-                if (sigNode == sigMethod) return true
+                if (sigNode == sigMethod) return Some(cn)
               }
             }
           }
         }
       }
     }
-    false
+    None
+  }
+
+  def areInSameHierarchy(n1: ConcreteNode, n2: ConcreteNode): Boolean = {
+    (isa_*(n1.id,n2.id) || isa_*(n2.id,n1.id))
   }
 
   def signature(node: DGNode) = {
