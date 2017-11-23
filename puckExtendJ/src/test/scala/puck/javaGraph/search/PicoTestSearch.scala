@@ -25,7 +25,6 @@ object PicoTestSearch {
 
     val scenario = new ScenarioFactory(filePaths:_*)
 
-
     val constraints = scenario.parseConstraintsFile(s"$path/decouple.wld")
 
     val fitness1: DependencyGraph => Double =
@@ -53,8 +52,12 @@ object PicoTestSearch {
     val engine = new SearchEngineWithLoggedFitness(strategy, control, constraints, Some(5), Some(evaluator))
     engine.explore()
 
-    PrintResults.printListRes(engine.results)
+ /*   PrintResults.printListRes(engine.results)
     SearchTest.printResult(engine.results,
+      engine.searchStrategy.SearchStateOrdering,
+      scenario.fullName2id, constraints, filePaths:_*) */
+
+    SearchTest.printResultWithCodeGeneration(engine.results,
       engine.searchStrategy.SearchStateOrdering,
       scenario.fullName2id, constraints, filePaths:_*)
 
