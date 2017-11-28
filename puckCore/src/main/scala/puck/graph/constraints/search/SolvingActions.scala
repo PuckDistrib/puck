@@ -204,8 +204,6 @@ class SolvingActions
   }
 
 
-
-
   def move
   ( g0 : DependencyGraph,
     wronglyContained : ConcreteNode
@@ -220,6 +218,7 @@ class SolvingActions
         doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
     }
   }
+
 /*
 // A TESTER: COMPILE MAIS NE DONNE PAS ENCORE LES RESULTATS ATTENDUS A L'EXECUTION
   def move
@@ -236,10 +235,14 @@ class SolvingActions
         if (wronglyContained.kind.kindType == InstanceValue) {
           g0.isMethodInHierarchy(wronglyContained) match {
             case Some(nih) =>
-              if (g.areInSameHierarchy(nih, g.getNode(newCter)))
+              if (g.areInSameHierarchy(nih, g.getNode(newCter))) {
+                println(nih.name + " and " + g.getNode(newCter).name + " are in same hierarchy")
                 doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
-              else
+              } else {
+                //println("g0("+nih.name+":"+nih.id+") g("+g.getNode(nih.id).name+":"+g.getNode(nih.id).id+")")
+                println(nih.name + " and " + g.getNode(newCter).name + " are not in same hierarchy")
                 Stream()
+              }
             case None => doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
           }
         } else {

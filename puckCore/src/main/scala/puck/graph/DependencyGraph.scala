@@ -567,32 +567,35 @@ class DependencyGraph private
     if (n.kind.kindType == InstanceValue) {
       val mc = container(n.id)
       val sigMethod = signature(n)
-      for (cn <- concreteNodes) {
-        mc match {
-          case Some(mcn) => if (isa_*(mcn,cn.id) || isa_*(cn.id, mcn)) {
-            val ccn = content(cn.id)
-            for (elcn <- ccn) {
-              val node = getNode(elcn)
-              if (node.kind.kindType == InstanceValue) {
-                val sigNode = signature(node)
-                if (sigNode == sigMethod) {
-                  println(getNode(mcn).name+" and "+cn.name+" contain "+signature(n))
-                  return Some(cn)
+
+      mc match {
+        case Some(mcn) =>
+          for (cn <- concreteNodes) {
+            if (isa_*(mcn, cn.id) || isa_*(cn.id, mcn)) {
+              val ccn = content(cn.id)
+              for (elcn <- ccn) {
+                val node = getNode(elcn)
+                if (node.kind.kindType == InstanceValue) {
+                  val sigNode = signature(node)
+                  if (sigNode == sigMethod) {
+                    println(getNode(mcn).name + " and " + cn.name + " contain " + signature(n))
+                    return Some(cn)
+                  }
                 }
               }
             }
           }
           case None => return None
         }
-      }
     }
     println(signature(n)+ " is not in hierarchy")
     None
   }
 
   def areInSameHierarchy(n1: DGNode, n2: DGNode): Boolean = {
-    println(n1.name+" is in same hierarchy as "+n2.name)
-    (isa_*(n1.id,n2.id) || isa_*(n2.id,n1.id))
+    val res = (isa_*(n1.id,n2.id) || isa_*(n2.id,n1.id))
+    if (res) println(n1.name+" is in same hierarchy as "+n2.name) else  println(n1.name+" is not in same hierarchy as "+n2.name)
+    res
   }
 
   def signature(node: DGNode) = {
