@@ -203,7 +203,7 @@ class SolvingActions
     (CreateParameter +: (tmKinds map CreateTypeMember.apply)).toStream
   }
 
-
+/*
   def move
   ( g0 : DependencyGraph,
     wronglyContained : ConcreteNode
@@ -218,8 +218,8 @@ class SolvingActions
         doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
     }
   }
+*/
 
-/*
 // A TESTER: COMPILE MAIS NE DONNE PAS ENCORE LES RESULTATS ATTENDUS A L'EXECUTION
   def move
   ( g0 : DependencyGraph,
@@ -251,7 +251,7 @@ class SolvingActions
       }
     }
   }
-*/
+
   def doMove
   ( g: DependencyGraph,
     wronglyContained : ConcreteNode,
