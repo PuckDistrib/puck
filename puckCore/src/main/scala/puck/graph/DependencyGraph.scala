@@ -571,7 +571,7 @@ class DependencyGraph private
       mc match {
         case Some(mcn) =>
           for (cn <- concreteNodes) {
-            if (isa_*(cn.id, mcn) || (isa_*(mcn, cn.id))) {
+            if ((isa_*(cn.id, mcn) || (isa_*(mcn, cn.id))) && (cn.id != mcn)) {
               val ccn = content(cn.id)
               for (elcn <- ccn) {
                 val node = getNode(elcn)
