@@ -563,7 +563,7 @@ class DependencyGraph private
   //        - contains the method n overrides
   //        - contains a method overridden by n
   // if not, it returns None
-  def isMethodInHierarchy(n: ConcreteNode): Option[ConcreteNode] = {
+  def isOverriddenOrOverrides(n: ConcreteNode): Option[ConcreteNode] = {
     if (n.kind.kindType == InstanceValue) {
       val mc = container(n.id)
       val sigMethod = signature(n)
@@ -571,7 +571,7 @@ class DependencyGraph private
       mc match {
         case Some(mcn) =>
           for (cn <- concreteNodes) {
-            if (isa_*(mcn, cn.id) || isa_*(cn.id, mcn)) {
+            if (isa_*(cn.id, mcn) || (isa_*(mcn, cn.id))) {
               val ccn = content(cn.id)
               for (elcn <- ccn) {
                 val node = getNode(elcn)
@@ -585,8 +585,8 @@ class DependencyGraph private
               }
             }
           }
-          case None => return None
-        }
+        case None => return None
+      }
     }
     println(signature(n)+ " is not in hierarchy")
     None

@@ -232,17 +232,22 @@ class SolvingActions
         Stream(LoggedError(lg + log, err))
       case LoggedSuccess(log, (newCter, g)) => {
         val oldCter = g.container_!(wronglyContained.id)
-        if (wronglyContained.kind.kindType == InstanceValue) {
-          g0.isMethodInHierarchy(wronglyContained) match {
-            case Some(nih) =>
-              if (g.areInSameHierarchy(nih, g.getNode(newCter))) {
+        if (wronglyContained.kind.kindType == InstanceValue) { // InstanceValue => wronglyContained is a method
+          g0.isOverriddenOrOverrides(wronglyContained) match {
+            case Some(nih) => {
+              println(g.signature(wronglyContained)+" overrides another method or is overridden")
+              Stream()
+            } // Move not allowed if wronglyContained overrides another method or is overridden
+
+             /* if (g.areInSameHierarchy(nih, g.getNode(newCter))) {
                 println(nih.name + " and " + g.getNode(newCter).name + " are in same hierarchy")
                 doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
               } else {
                 //println("g0("+nih.name+":"+nih.id+") g("+g.getNode(nih.id).name+":"+g.getNode(nih.id).id+")")
                 println(nih.name + " and " + g.getNode(newCter).name + " are not in same hierarchy")
                 Stream()
-              }
+              } */
+
             case None => doMove(g, wronglyContained, oldCter, newCter) map (ltg => (lg + log) <++: ltg.map((newCter, _)))
           }
         } else {
